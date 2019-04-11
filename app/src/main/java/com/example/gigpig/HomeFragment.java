@@ -43,9 +43,6 @@ public class HomeFragment extends Fragment {
 
         recyclerView = getView().findViewById(R.id.recycler_view);
 
-        Posting post = new Posting("Niel", "need my rug washed", "your moms house");
-        this.postingList.add(post);
-
         mAdapter = new PostingAdapter(postingList);
         mAdapter.notifyDataSetChanged();
 
@@ -55,7 +52,7 @@ public class HomeFragment extends Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
 
-//        preparePostings();
+        preparePostings();
     }
 
     private void preparePostings() {
