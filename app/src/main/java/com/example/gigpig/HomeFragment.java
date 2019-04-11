@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
-import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
 
@@ -57,7 +56,47 @@ public class HomeFragment extends Fragment {
 
     private void preparePostings() {
         Posting post = new Posting("Niel", "need my rug washed", "your moms house");
+
         this.postingList.add(post);
+        this.postingList.add(post);
+        this.postingList.add(post);
+        this.postingList.add(post);
+        this.postingList.add(post);
+        this.postingList.add(post);
+        this.postingList.add(post);
+        this.postingList.add(post);
+        this.postingList.add(post);
+        this.postingList.add(post);
+        this.postingList.add(post);
+        this.postingList.add(post);
+        this.postingList.add(post);
+        this.postingList.add(post);
+        this.postingList.add(post);
+        this.postingList.add(post);
+        this.postingList.add(post);
+        this.postingList.add(post);
+        this.postingList.add(post);
+        this.postingList.add(post);
+        this.postingList.add(post);
+        this.postingList.add(post);
+        this.postingList.add(post);
+        this.postingList.add(post);
+        this.postingList.add(post);
+        this.postingList.add(post);
+        this.postingList.add(post);
+        this.postingList.add(post);
+        this.postingList.add(post);
+        this.postingList.add(post);
+        this.postingList.add(post);
+        this.postingList.add(post);
+        this.postingList.add(post);
+        this.postingList.add(post);
+        this.postingList.add(post);
+        this.postingList.add(post);
+        this.postingList.add(post);
+        this.postingList.add(post);
+        this.postingList.add(post);
+
 
         mAdapter.notifyDataSetChanged();
     }
