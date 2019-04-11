@@ -7,19 +7,26 @@ import java.util.Comparator;
 public class SortByTagsStrategy implements SortingStrategy {
 
     public class SortByTags implements Comparator<Job> {
+        String tags;
+
+        public SortByTags(String tags) {
+            this.tags = tags;
+        }
+
         public int compare(Job job, Job job2) {
             DamerauLevenshteinAlgorithm dla = new DamerauLevenshteinAlgorithm(1,1,1,1);
-            return dla.execute(job.getTags(), job2.getTags());
+            return dla.execute(tags, job2.getTags());
         }
     }
 
+    String tags;
 
-    public SortByTagsStrategy() {
-
+    public SortByTagsStrategy(String tags) {
+        this.tags = tags;
     }
 
     public ArrayList<Job> sort(ArrayList<Job> jobs) {
-        Collections.sort(jobs, new SortByTags());
+        Collections.sort(jobs, new SortByTags(tags));
         return jobs;
     }
 }
