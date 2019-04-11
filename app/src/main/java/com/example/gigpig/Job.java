@@ -1,3 +1,4 @@
+package com.example.gigpig;
 
 public class Job {
 	private double payout;

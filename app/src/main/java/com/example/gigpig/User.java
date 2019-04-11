@@ -1,7 +1,8 @@
+package com.example.gigpig;
 import java.util.ArrayList;
 
 public class User{
-	
+	//Pranav pushed
     private String firstName;
     private String lastName;
     private String phoneNum;
