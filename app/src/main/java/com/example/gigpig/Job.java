@@ -8,6 +8,8 @@ public class Job {
 	private boolean isTaken;
 	private User doer;
 	private User creator;
+
+	private String tags;
 	
 	public Job(String title, String desc, double payout, User creator) {
 		this.jobTitle = title;
