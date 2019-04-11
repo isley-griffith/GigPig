@@ -26,8 +26,10 @@ public class SortByTagsStrategy implements SortingStrategy {
     }
 
     public ArrayList<Job> sort(ArrayList<Job> jobs) {
-        Collections.sort(jobs, new SortByTags(tags));
-        return jobs;
+        ArrayList<Job> sortedJobs = new ArrayList<>();
+        sortedJobs.addAll(jobs);
+        Collections.sort(sortedJobs, new SortByTags(tags));
+        return sortedJobs;
     }
 }
 
