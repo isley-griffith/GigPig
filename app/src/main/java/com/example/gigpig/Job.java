@@ -24,6 +24,10 @@ public class Job implements Comparable<Job> {
 		this.isTaken = true;
 	}
 
+	public String getTags() {
+
+	}
+
 	public boolean isTaken() {
 		return isTaken;
 	}

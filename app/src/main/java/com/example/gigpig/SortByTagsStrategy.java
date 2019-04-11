@@ -1,39 +1,26 @@
 package com.example.gigpig;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import com.google.android.material.internal.*;
+import java.util.Collections;
+import java.util.Comparator;
+
 
 public class SortByTagsStrategy implements SortingStrategy {
-    String tags;
-    DamerauLevenshteinAlgorithm dla;
 
-    public SortByTagsStrategy(String tags) {
-        this.tags = tags;
-        dla = new DamerauLevenshteinAlgorithm();
+    public class SortByTags implements Comparator<Job> {
+        public int compare(Job job, Job job2) {
+            DamerauLevenshteinAlgorithm dla = new DamerauLevenshteinAlgorithm(1,1,1,1);
+            return dla.execute(job.getTags(), job2.getTags());
+        }
+    }
+
+
+    public SortByTagsStrategy() {
+
     }
 
     public ArrayList<Job> sort(ArrayList<Job> jobs) {
-        Multimap<Integer, Job> jobsWithValue = new HashMap<Job, Integer>();
-
-        Multimap
-
-        for(Job job : jobs) {
-            Integer dlaValue = dla.execute(tags, job.getTags());
-            jobsWithValue.put(job, dlaValue);
-        }
-
-        ArrayList<Job> sortedJobs = new ArrayList<Job>();
-
-        Iterator it = jobsWithValue.entrySet().iterator();
-
-
-        while(it.hasNext()) {
-            Map.Entry pair = (Map.Entry) it.next();
-            Job key = (Job) pair.getKey();
-            Integer value = (Integer) pair.getValue();
-            if(value.compareTo())
-        }
+        Collections.sort(jobs, new SortByTags());
+        return jobs;
     }
 }
+

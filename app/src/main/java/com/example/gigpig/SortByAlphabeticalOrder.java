@@ -1,8 +1,7 @@
 package com.example.gigpig;
-
+import java.util.Comparator;
 import java.util.ArrayList;
-import java.util.*;
-import com.google.common.collect.*;
+import java.util.Collections;
 
 
 public class SortByAlphabeticalOrder implements SortingStrategy {
@@ -11,6 +10,7 @@ public class SortByAlphabeticalOrder implements SortingStrategy {
             return job.getTitle().compareTo(job2.getTitle());
         }
     }
+
     public ArrayList<Job> sort(ArrayList<Job> jobs) {
         Collections.sort(jobs, new SortByName());
         return jobs;
