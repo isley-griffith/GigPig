@@ -8,7 +8,7 @@ public class User{
     private String phoneNum;
     private String username;
     private String password;
-    private ArrayList<String> tags;
+    private String tags;
     private String bio;
     
     private ArrayList<Job> userJobs;
@@ -89,6 +89,14 @@ public class User{
             this.bio = newBio;
             return 1;
         }
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
+    }
+
+    public String getTags() {
+        return tags;
     }
 
     /** Creates a new job

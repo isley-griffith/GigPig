@@ -41,6 +41,10 @@ public class Job {
 		this.isComplete = true;
 	}
 
+	public void addTags(String tags) {
+		this.tags = tags;
+	}
+
 	public void rateDoerPerformance(double rating) {
 		doer.receivedRating(rating);
 	}
