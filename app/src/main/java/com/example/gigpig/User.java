@@ -2,10 +2,13 @@ package com.example.gigpig;
 import java.util.ArrayList;
 
 public class User{
-	//Pranav pushed
+
     private String firstName;
     private String lastName;
     private String phoneNum;
+    private String username;
+    private String password;
+    private ArrayList<String> tags;
     private String bio;
     
     private ArrayList<Job> userJobs;
