@@ -1,6 +1,6 @@
 package com.example.gigpig;
 
-public class Job {
+public class Job implements Comparable<Job> {
 	private double payout;
 	private String description;
 	private String jobTitle;
@@ -10,7 +10,7 @@ public class Job {
 	private User creator;
 
 	private String tags;
-	
+
 	public Job(String title, String desc, double payout, User creator) {
 		this.jobTitle = title;
 		this.description = desc;
@@ -18,27 +18,35 @@ public class Job {
 		this.isComplete = false;
 		this.isTaken = false;
 	}
-	
+
 	public void takeJob(User doer) {
 		this.doer = doer;
 		this.isTaken = true;
 	}
-	
+
 	public boolean isTaken() {
 		return isTaken;
 	}
-	
+
 	public boolean isComplete() {
 		return isComplete;
 	}
-	
+
 	public void jobCompleted() {
 		this.isTaken = false;
 		this.isComplete = true;
 	}
-	
+
 	public void rateDoerPerformance(double rating) {
 		doer.receivedRating(rating);
 	}
 
+	public String getTitle() {
+		return jobTitle;
+	}
+
+	public int compareTo(Job job) {
+		return jobTitle.compareTo(job.getTitle());
+	}
 }
+
