@@ -3,7 +3,6 @@ import java.util.Comparator;
 import java.util.ArrayList;
 import java.util.Collections;
 
-
 public class SortByAlphabeticalOrder implements SortingStrategy {
     public class SortByName implements Comparator<Job> {
         public int compare(Job job, Job job2) {
@@ -12,8 +11,9 @@ public class SortByAlphabeticalOrder implements SortingStrategy {
     }
 
     public ArrayList<Job> sort(ArrayList<Job> jobs) {
-        Collections.sort(jobs, new SortByName());
-        return jobs;
+        ArrayList<Job> modifiedJobs = new ArrayList<Job>(jobs);
+        Collections.sort(modifiedJobs, new SortByName());
+        return modifiedJobs;
     }
 
 }
