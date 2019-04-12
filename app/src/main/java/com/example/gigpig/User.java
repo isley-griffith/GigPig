@@ -10,7 +10,7 @@ public class User{
     private String password;
     private ArrayList<String> tags;
     private String bio;
-    
+    private ArrayList<String> reviews;
     private ArrayList<Job> userJobs;
     private ArrayList<Job> pastJobs;
     private Job userTakenJob;
@@ -32,6 +32,7 @@ public class User{
         this.pastJobs = new ArrayList<Job>();
         this.ratings = new ArrayList<Double>();
         this.userHasJob = false;
+        this.reviews = new ArrayList<String>();
         overallUserRating = 5;
         numberOfRatings = 0;
         this.tags = new ArrayList<String>();
