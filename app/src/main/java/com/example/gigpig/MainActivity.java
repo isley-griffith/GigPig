@@ -12,7 +12,7 @@ public class MainActivity extends AppCompatActivity
 
     Fragment homeFragment;
     Fragment searchFragment;
-    Fragment addFragment;
+    Fragment newFragment;
     Fragment notificationsFragment;
     Fragment profileFragment;
 
@@ -25,9 +25,14 @@ public class MainActivity extends AppCompatActivity
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(this);
 
+        this.homeFragment = new HomeFragment();
+        this.searchFragment = new SearchFragment();
+        this.newFragment = new NewFragment();
+        this.notificationsFragment = new NotificationsFragment();
+        this.profileFragment = new ProfileFragment();
 
 
-        loadFragment(new HomeFragment());
+        loadFragment(this.homeFragment);
     }
 
     private boolean loadFragment(Fragment fragment) {
@@ -48,19 +53,19 @@ public class MainActivity extends AppCompatActivity
 
         switch (menuItem.getItemId()) {
             case R.id.navigation_home:
-                fragment = new HomeFragment();
+                fragment = this.homeFragment;
                 break;
             case R.id.navigation_search:
-                fragment = new SearchFragment();
+                fragment = this.searchFragment;
                 break;
             case R.id.navigation_new:
-                fragment = new NewFragment();
+                fragment = this.newFragment;
                 break;
             case R.id.navigation_notifications:
-                fragment = new NotificationsFragment();
+                fragment = this.notificationsFragment;
                 break;
             case R.id.navigation_profile:
-                fragment = new ProfileFragment();
+                fragment = this.profileFragment;
                 break;
         }
 

@@ -53,5 +53,9 @@ public class Job {
 		return jobTitle;
 	}
 
+	public String getDescription() { return this.description; }
+
+	public double getPayout() { return this.payout; }
+
 }
 

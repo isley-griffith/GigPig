@@ -8,12 +8,22 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 public class NewFragment extends Fragment {
 
     TextView newLable;
-    TextInputLayout jobTitleInput;
+    TextView success;
+
+    EditText jobTitleInput;
+    EditText jobDescriptionInput;
+    EditText jobPriceInput;
+
+    Button createJobButton;
+
+    Job newJob;
 
     @Nullable
     @Override
@@ -28,8 +38,35 @@ public class NewFragment extends Fragment {
         this.newLable = getView().findViewById(R.id.newLabel);
         this.newLable.setText("NEW");
 
+        this.success = getView().findViewById(R.id.success);
+
+        this.createJobButton = getView().findViewById(R.id.createJobButton);
+        this.createJobButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                createJob(view);
+            }
+        });
+
         this.jobTitleInput = getView().findViewById(R.id.jobTitleInput);
+        this.jobDescriptionInput = getView().findViewById(R.id.jobDescriptionInput);
+        this.jobPriceInput = getView().findViewById(R.id.jobPriceInput);
 
+        this.newJob = null;
 
+    }
+
+    // TODO: Some database stuff
+    private void createJob(View view) {
+        double payout = Float.valueOf(this.jobPriceInput.getText().toString());
+        String description = this.jobDescriptionInput.getText().toString();
+        String title = this.jobTitleInput.getText().toString();
+
+        // placeholder
+        User placeHolderUser = new User();
+
+        this.newJob = new Job(title, description, payout, placeHolderUser);
+
+        this.success.setText("Created new job");
     }
 }
