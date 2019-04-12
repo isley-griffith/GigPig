@@ -78,9 +78,11 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
 
         // placeholder
         ArrayList<String> tags = new ArrayList<>();
+
+        // tags to sort by!
         tags.add("wash");
         tags.add("clean");
-        tags.add("ants");
+        tags.add("lost");
 
 
         switch (item) {
@@ -112,11 +114,12 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         User user = new User();
         ArrayList<String> tags = new ArrayList<>();
         tags.add("goat");
-        tags.add("wash");
+        tags.add("clean");
 
-        Job job = new Job("Goat wash",
-                "Need my goat washed. Someone with strong hands prefered to get all the gunk out of him",
-                12, user, tags);
+        Job job = new Job("Goats",
+                "Need someone who is experienced with goat care to work one day cleaning stalls" +
+                        ", feeding etc.",
+                50, user, tags);
 
         this.jobsList.add(job);
 
@@ -124,37 +127,34 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         tags.add("line");
         tags.add("long");
 
-        job = new Job("Long ass text test",
-                "Need my goatfdjkfhjdkshfjkldhflakjdhsf" +
-                        "dafhladskjhfakljdshfjlkadshflasdkjfhlads" +
-                        "adhfkjlhasdklfjhasdlkfjhasdlfjkha" +
-                        "" +
-                        "fjksdfjkashdflaksdfladsfhdlskjfhdsalk" +
-                        "fhsdlakjhfadsf" +
-                        "hfjaskdlfhkldsjfh" +
-                        "fhdsajkfhasldjfhsladfhkjsdlafkhljksdafhdsalkhfjalsdkhfj" +
-                        " suuuuper long line",
+        job = new Job("Long job",
+                "This is to text a long job with multiple lines\n" +
+                        "Here's another line\n" +
+                        "another one\n" +
+                        "the idea is that the cells will adjust their size automatically based on the" +
+                        "size of the job posting",
                 12, user, tags);
 
         this.jobsList.add(job);
 
         tags = new ArrayList<>();
         tags.add("find");
-        tags.add("ants");
+        tags.add("cats");
         tags.add("lost");
 
-        job = new Job("Lost ants",
-                "REWARD: Lost my whole colony of ants. Please help me find them. They respond to 'little boys'",
+        job = new Job("Lost cat",
+                "REWARD: Need someone to find my cat. Lost somewhere in monument creek." +
+                        "He responds to Jimmy",
                 100, user, tags);
 
         this.jobsList.add(job);
 
         tags = new ArrayList<>();
         tags.add("an");
-        tags.add("lost");
+        tags.add("nothing");
 
         job = new Job("A nothing thing",
-                "just tryna sort knamean",
+                "Test sort alphabetically",
                 0, user, tags);
 
         this.jobsList.add(job);
@@ -163,9 +163,10 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         tags.add("clean");
         tags.add("windex");
 
-        job = new Job("Clean my cleaning supplies",
-                "My windex is dirty. Halp?",
-                0, user, tags);
+        job = new Job("Clean with my cleaning supplies",
+                "Need someone with a lot of cleaning experience to clean my kitchen floor" +
+                        "\n I will supply cleaning materials",
+                20, user, tags);
 
         this.jobsList.add(job);
 
