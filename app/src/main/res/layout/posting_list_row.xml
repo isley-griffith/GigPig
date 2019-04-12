@@ -27,6 +27,7 @@
         android:textColor="@color/colorPrimaryDark"
         android:layout_below="@id/poster" />
 
+
     <TextView
         android:id="@+id/location"
         android:layout_width="wrap_content"

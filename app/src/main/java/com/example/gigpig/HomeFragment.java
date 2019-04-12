@@ -11,42 +11,58 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
-//    private ArrayList<Posting> postingList;
     private ArrayList<Job> jobsList;
 
     private RecyclerView recyclerView;
-//    private PostingAdapter mAdapter;
     private  JobAdapter mAdapter;
 
+    private Spinner sortSelection;
+
+    private SortingStrategy sortingStrategy;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_home, container, false);
 
-//        this.postingList = new ArrayList<Posting>();
         this.jobsList = new ArrayList<Job>();
+        this.sortingStrategy = new SortByAlphabeticalOrder();
 
+        this.jobsList = this.sortingStrategy.sort(this.jobsList);
 
         return view;
-//        return inflater.inflate(R.layout.fragment_home, null);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        recyclerView = getView().findViewById(R.id.recycler_view);
+        sortSelection = getView().findViewById(R.id.sortSelection);
 
-//        mAdapter = new PostingAdapter(postingList);
+        List<String> sortMethods = new ArrayList<>();
+        sortMethods.add("Sort by my tags");
+        sortMethods.add("Sort alphabetically");
+
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, sortMethods);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        sortSelection.setAdapter(dataAdapter);
+        sortSelection.setSelection(1);
+
+        sortSelection.setOnItemSelectedListener(this);
+
+        recyclerView = getView().findViewById(R.id.recycler_view);
         mAdapter = new JobAdapter(jobsList);
         mAdapter.notifyDataSetChanged();
-
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mLayoutManager);
@@ -56,8 +72,41 @@ public class HomeFragment extends Fragment {
         preparePostings();
     }
 
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        String item = adapterView.getItemAtPosition(i).toString();
+
+        // placeholder
+        ArrayList<String> tags = new ArrayList<>();
+        tags.add("wash");
+        tags.add("clean");
+        tags.add("ants");
+
+
+        switch (item) {
+            case "Sort by my tags":
+                this.sortingStrategy = new SortByTagsStrategy(tags);
+                break;
+            case "Sort alphabetically":
+                this.sortingStrategy = new SortByAlphabeticalOrder();
+                break;
+        }
+
+//        this.jobsList.clear();
+//        this.jobsList.add(job);
+
+        ArrayList<Job> sortList = this.sortingStrategy.sort(this.jobsList);
+
+        mAdapter.updateContents(sortList);
+        mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
+
     private void preparePostings() {
-//        Posting post = new Posting("Niel", "need my rug washed", "your moms house");
 
         // placeholder
         User user = new User();
@@ -69,8 +118,11 @@ public class HomeFragment extends Fragment {
                 "Need my goat washed. Someone with strong hands prefered to get all the gunk out of him",
                 12, user, tags);
 
-//        this.postingList.add(post);
         this.jobsList.add(job);
+
+        tags = new ArrayList<>();
+        tags.add("line");
+        tags.add("long");
 
         job = new Job("Long ass text test",
                 "Need my goatfdjkfhjdkshfjkldhflakjdhsf" +
@@ -81,12 +133,12 @@ public class HomeFragment extends Fragment {
                         "fhsdlakjhfadsf" +
                         "hfjaskdlfhkldsjfh" +
                         "fhdsajkfhasldjfhsladfhkjsdlafkhljksdafhdsalkhfjalsdkhfj" +
-                        " washed. Someone with strong hands prefered to get all the gunk out of him",
+                        " suuuuper long line",
                 12, user, tags);
 
         this.jobsList.add(job);
 
-        tags.clear();
+        tags = new ArrayList<>();
         tags.add("find");
         tags.add("ants");
         tags.add("lost");
@@ -97,7 +149,25 @@ public class HomeFragment extends Fragment {
 
         this.jobsList.add(job);
 
+        tags = new ArrayList<>();
+        tags.add("an");
+        tags.add("lost");
 
+        job = new Job("A nothing thing",
+                "just tryna sort knamean",
+                0, user, tags);
+
+        this.jobsList.add(job);
+
+        tags = new ArrayList<>();
+        tags.add("clean");
+        tags.add("windex");
+
+        job = new Job("Clean my cleaning supplies",
+                "My windex is dirty. Halp?",
+                0, user, tags);
+
+        this.jobsList.add(job);
 
 
         mAdapter.notifyDataSetChanged();

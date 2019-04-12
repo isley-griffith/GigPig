@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="sort_methods">
+        <item>Sort by my tags</item>
+        <item>Sort alphabetically</item>
+    </string-array>
+</resources>

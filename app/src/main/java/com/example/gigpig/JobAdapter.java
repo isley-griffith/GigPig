@@ -15,17 +15,22 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.MyViewHolder> {
     private ArrayList<Job> jobsList;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView title, description, price;
+        public TextView title, description, price, tags;
 
         public MyViewHolder(View view) {
             super(view);
             title = (TextView) view.findViewById(R.id.title);
             description = (TextView) view.findViewById(R.id.description);
             price = (TextView) view.findViewById(R.id.price);
+            tags = view.findViewById(R.id.tags);
         }
     }
 
     public JobAdapter(ArrayList<Job> jobsList) {
+        this.jobsList = jobsList;
+    }
+
+    public void updateContents(ArrayList<Job> jobsList) {
         this.jobsList = jobsList;
     }
 
@@ -35,6 +40,8 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.MyViewHolder> {
 
         holder.title.setText(job.getTitle());
         holder.description.setText(job.getDescription());
+        holder.tags.setText(job.getTags().toString());
+
         holder.price.setText("$" + String.format("%.2f", job.getPayout()));
 
 
