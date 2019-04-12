@@ -40,6 +40,14 @@
         android:hint="Description"
         android:inputType="textMultiLine" />
 
+    <EditText
+        android:id="@+id/jobTagsInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="400dp"
+        android:hint="Tags"
+        android:inputType="textMultiLine" />
+
     <TextView
         android:id="@+id/success"
         android:layout_width="wrap_content"

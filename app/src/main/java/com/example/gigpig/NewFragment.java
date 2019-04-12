@@ -12,6 +12,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class NewFragment extends Fragment {
 
     TextView newLable;
@@ -20,6 +23,7 @@ public class NewFragment extends Fragment {
     EditText jobTitleInput;
     EditText jobDescriptionInput;
     EditText jobPriceInput;
+    EditText jobTagsInput;
 
     Button createJobButton;
 
@@ -36,7 +40,8 @@ public class NewFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         this.newLable = getView().findViewById(R.id.newLabel);
-        this.newLable.setText("NEW");
+        this.newLable.setTextSize(14);
+        this.newLable.setText("New Job Listing");
 
         this.success = getView().findViewById(R.id.success);
 
@@ -51,22 +56,46 @@ public class NewFragment extends Fragment {
         this.jobTitleInput = getView().findViewById(R.id.jobTitleInput);
         this.jobDescriptionInput = getView().findViewById(R.id.jobDescriptionInput);
         this.jobPriceInput = getView().findViewById(R.id.jobPriceInput);
+        this.jobTagsInput = getView().findViewById(R.id.jobTagsInput);
+
 
         this.newJob = null;
 
     }
 
+    private ArrayList<String> getTags() {
+        String tagsString = this.jobTagsInput.getText().toString();
+
+        return new ArrayList<>(Arrays.asList(tagsString.split(" ")));
+    }
+
     // TODO: Some database stuff
     private void createJob(View view) {
-        double payout = Float.valueOf(this.jobPriceInput.getText().toString());
+        double payout = 0.0;
+
+        if (!this.jobPriceInput.getText().toString().isEmpty())
+            payout = Float.valueOf(this.jobPriceInput.getText().toString());
+
         String description = this.jobDescriptionInput.getText().toString();
+
+        // job must have description
+        if (description.isEmpty())
+            return;
+
         String title = this.jobTitleInput.getText().toString();
+
+        // job must have title
+        if (title.isEmpty())
+            return;
+
+        ArrayList<String> tags = getTags();
 
         // placeholder
         User placeHolderUser = new User();
 
-        this.newJob = new Job(title, description, payout, placeHolderUser);
+        this.newJob = new Job(title, description, payout, placeHolderUser, tags);
 
-        this.success.setText("Created new job");
+        String toSet = "Job '" + title + "' created successfully";
+        this.success.setText(toSet);
     }
 }
