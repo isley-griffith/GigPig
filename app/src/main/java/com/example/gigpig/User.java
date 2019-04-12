@@ -38,7 +38,18 @@ public class User{
         this.tags = new ArrayList<String>();
     	//TODO: Figure out what might be necessary here
     }
-    
+
+
+
+    public User(String firstname, String lastname, String phonenumber, String username, ArrayList<String> tags, String bio) {
+        this.firstName = firstname;
+        this.lastName = lastname;
+        this.phoneNum = phonenumber;
+        this.username = username;
+        this.tags = tags;
+        this.bio = bio;
+    }
+
     private boolean checkNum() {
     	//TODO: Some sort of way to check if the number has already been registered to an existing account
     	return true;
