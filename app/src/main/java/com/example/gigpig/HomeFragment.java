@@ -16,11 +16,12 @@ import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
 
-    private ArrayList<Posting> postingList;
-    private RecyclerView recyclerView;
-    private PostingAdapter mAdapter;
-    private Context context;
+//    private ArrayList<Posting> postingList;
+    private ArrayList<Job> jobsList;
 
+    private RecyclerView recyclerView;
+//    private PostingAdapter mAdapter;
+    private  JobAdapter mAdapter;
 
 
     @Nullable
@@ -28,8 +29,8 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_home, container, false);
 
-        this.postingList = new ArrayList<Posting>();
-
+//        this.postingList = new ArrayList<Posting>();
+        this.jobsList = new ArrayList<Job>();
 
 
         return view;
@@ -42,7 +43,8 @@ public class HomeFragment extends Fragment {
 
         recyclerView = getView().findViewById(R.id.recycler_view);
 
-        mAdapter = new PostingAdapter(postingList);
+//        mAdapter = new PostingAdapter(postingList);
+        mAdapter = new JobAdapter(jobsList);
         mAdapter.notifyDataSetChanged();
 
 
@@ -55,47 +57,47 @@ public class HomeFragment extends Fragment {
     }
 
     private void preparePostings() {
-        Posting post = new Posting("Niel", "need my rug washed", "your moms house");
+//        Posting post = new Posting("Niel", "need my rug washed", "your moms house");
 
-        this.postingList.add(post);
-        this.postingList.add(post);
-        this.postingList.add(post);
-        this.postingList.add(post);
-        this.postingList.add(post);
-        this.postingList.add(post);
-        this.postingList.add(post);
-        this.postingList.add(post);
-        this.postingList.add(post);
-        this.postingList.add(post);
-        this.postingList.add(post);
-        this.postingList.add(post);
-        this.postingList.add(post);
-        this.postingList.add(post);
-        this.postingList.add(post);
-        this.postingList.add(post);
-        this.postingList.add(post);
-        this.postingList.add(post);
-        this.postingList.add(post);
-        this.postingList.add(post);
-        this.postingList.add(post);
-        this.postingList.add(post);
-        this.postingList.add(post);
-        this.postingList.add(post);
-        this.postingList.add(post);
-        this.postingList.add(post);
-        this.postingList.add(post);
-        this.postingList.add(post);
-        this.postingList.add(post);
-        this.postingList.add(post);
-        this.postingList.add(post);
-        this.postingList.add(post);
-        this.postingList.add(post);
-        this.postingList.add(post);
-        this.postingList.add(post);
-        this.postingList.add(post);
-        this.postingList.add(post);
-        this.postingList.add(post);
-        this.postingList.add(post);
+        // placeholder
+        User user = new User();
+        ArrayList<String> tags = new ArrayList<>();
+        tags.add("goat");
+        tags.add("wash");
+
+        Job job = new Job("Goat wash",
+                "Need my goat washed. Someone with strong hands prefered to get all the gunk out of him",
+                12, user, tags);
+
+//        this.postingList.add(post);
+        this.jobsList.add(job);
+
+        job = new Job("Long ass text test",
+                "Need my goatfdjkfhjdkshfjkldhflakjdhsf" +
+                        "dafhladskjhfakljdshfjlkadshflasdkjfhlads" +
+                        "adhfkjlhasdklfjhasdlkfjhasdlfjkha" +
+                        "" +
+                        "fjksdfjkashdflaksdfladsfhdlskjfhdsalk" +
+                        "fhsdlakjhfadsf" +
+                        "hfjaskdlfhkldsjfh" +
+                        "fhdsajkfhasldjfhsladfhkjsdlafkhljksdafhdsalkhfjalsdkhfj" +
+                        " washed. Someone with strong hands prefered to get all the gunk out of him",
+                12, user, tags);
+
+        this.jobsList.add(job);
+
+        tags.clear();
+        tags.add("find");
+        tags.add("ants");
+        tags.add("lost");
+
+        job = new Job("Lost ants",
+                "REWARD: Lost my whole colony of ants. Please help me find them. They respond to 'little boys'",
+                100, user, tags);
+
+        this.jobsList.add(job);
+
+
 
 
         mAdapter.notifyDataSetChanged();
