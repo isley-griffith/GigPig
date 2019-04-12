@@ -13,6 +13,7 @@ import static org.junit.Assert.assertNotEquals;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 public class SortByAlphabeticalOrderTest {
+
     @Test
     public void testSortAlphabetically() {
         ArrayList<Job> jobs = new ArrayList<Job>();
