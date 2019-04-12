@@ -8,7 +8,7 @@ public class User{
     private String phoneNum;
     private String username;
     private String password;
-    private String tags;
+    private ArrayList<String> tags;
     private String bio;
     
     private ArrayList<Job> userJobs;
@@ -34,6 +34,7 @@ public class User{
         this.userHasJob = false;
         overallUserRating = 5;
         numberOfRatings = 0;
+        this.tags = new ArrayList<String>();
     	//TODO: Figure out what might be necessary here
     }
     
@@ -91,11 +92,11 @@ public class User{
         }
     }
 
-    public void setTags(String tags) {
-        this.tags = tags;
+    public void addTag(String tag) {
+        this.tags.add(tag);
     }
 
-    public String getTags() {
+    public ArrayList<String> getTags() {
         return tags;
     }
 
@@ -114,7 +115,7 @@ public class User{
     	} else if (pay < 1) {
     		return 3;
     	} else {
-    		Job newJob = new Job(jobName, description, pay, this);
+    		Job newJob = new Job(jobName, description, pay, this, tags);
     		this.userJobs.add(newJob);					// Adds job to user's job offerings
     		return 1;
     	}

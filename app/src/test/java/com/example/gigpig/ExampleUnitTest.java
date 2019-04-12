@@ -20,12 +20,12 @@ public class ExampleUnitTest {
     @Test
     public void testSortAlphabetically() {
         ArrayList<Job> jobs = new ArrayList<Job>();
-
+        ArrayList<String> tags = new ArrayList<String>();
         User user = new User();
 
-        Job job = new Job("YOOOOO WASH MY SHIT", "needa wash buddy", 3.20, user);
-        Job job1 = new Job("AAAAYOOOOO WASH MY SHIT", "needa wash buddy", 3.20, user);
-        Job job2 = new Job("BAAYOOOOO WASH MY SHIT", "needa wash buddy", 3.20, user);
+        Job job = new Job("YOOOOO WASH MY SHIT", "needa wash buddy", 3.20, user, tags);
+        Job job1 = new Job("AAAAYOOOOO WASH MY SHIT", "needa wash buddy", 3.20, user, tags);
+        Job job2 = new Job("BAAYOOOOO WASH MY SHIT", "needa wash buddy", 3.20, user, tags);
 
         jobs.add(job);
         jobs.add(job1);
@@ -52,39 +52,48 @@ public class ExampleUnitTest {
     public void testSortByTags() {
 
         ArrayList<Job> jobs = new ArrayList<Job>();
-
+        ArrayList<String> tags = new ArrayList<String>();
         User user = new User();
-        user.setTags("wash clean");
+        user.addTag("nothing");
+        user.addTag("wash");
+        user.addTag("clean");
+        user.addTag("hello");
+        tags.add("wash");
+        tags.add("clean");
+        ArrayList<String> noTags = new ArrayList<String>();
+        noTags.add("butt");
+        noTags.add("pleasehelpmydad");
 
-        Job job = new Job("wash goat", "needa wash buddy", 3.20, user);
-        job.addTags("wash");
 
-        Job job1 = new Job("clean floor", "needa wash buddy", 3.20, user);
-        job1.addTags("clean");
-        Job job2 = new Job("wash my cleaning supplies", "needa wash buddy", 3.20, user);
-        job2.addTags("wash clean");
-        Job job3 = new Job("buy my dad", "needa wash buddy", 3.20, user);
-        job2.addTags("nothing");
 
+        Job job = new Job("wash goat", "needa wash buddy", 3.20, user, tags);
+        Job job1 = new Job("clean floor", "needa wash buddy", 3.20, user, tags);
+        Job job2 = new Job("wash my cleaning supplies", "needa wash buddy", 3.20, user, tags);
+        Job job3 = new Job("buy my dad", "needa wash buddy", 3.20, user, noTags);
 
         jobs.add(job);
         jobs.add(job1);
         jobs.add(job2);
         jobs.add(job3);
+        ArrayList<Job> testList = new ArrayList<>();
+        testList.add(job);
+        testList.add(job1);
+        testList.add(job2);
 
         SortingStrategy sbt = new SortByTagsStrategy(user.getTags());
-
         ArrayList<Job> toSort = sbt.sort(jobs);
-
-        System.out.println("before:");
-
-        for (Job jobz : jobs)
-            System.out.println(jobz.getTitle());
-
-        System.out.println();
-        System.out.println("after: ");
-        for (Job jobz : toSort)
-            System.out.println(jobz.getTitle());
+        assertEquals(testList, toSort);
+//        System.out.println("before:");
+//
+//        for (Job jobz : jobs) {
+//            System.out.println(jobz.getTitle());
+//        }
+//
+//        System.out.println();
+//        System.out.println("after: ");
+//        for (Job jobz : toSort) {
+//            System.out.println(jobz.getTitle());
+//        }
 
     }
 }

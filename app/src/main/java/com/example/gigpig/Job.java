@@ -1,4 +1,5 @@
 package com.example.gigpig;
+import java.util.*;
 
 public class Job {
 	private double payout;
@@ -9,14 +10,15 @@ public class Job {
 	private User doer;
 	private User creator;
 
-	private String tags;
+	private ArrayList<String> tags;
 
-	public Job(String title, String desc, double payout, User creator) {
+	public Job(String title, String desc, double payout, User creator, ArrayList<String> tags) {
 		this.jobTitle = title;
 		this.description = desc;
 		this.payout = payout;
 		this.isComplete = false;
 		this.isTaken = false;
+		this.tags = tags;
 	}
 
 	public void takeJob(User doer) {
@@ -24,7 +26,9 @@ public class Job {
 		this.isTaken = true;
 	}
 
-	public String getTags() {
+
+
+	public ArrayList<String> getTags() {
 		return tags;
 	}
 
@@ -41,8 +45,8 @@ public class Job {
 		this.isComplete = true;
 	}
 
-	public void addTags(String tags) {
-		this.tags = tags;
+	public void addTag(String tag) {
+		this.tags.add(tag);
 	}
 
 	public void rateDoerPerformance(double rating) {

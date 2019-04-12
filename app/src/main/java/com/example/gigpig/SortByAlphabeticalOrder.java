@@ -15,6 +15,4 @@ public class SortByAlphabeticalOrder implements SortingStrategy {
         Collections.sort(modifiedJobs, new SortByName());
         return modifiedJobs;
     }
-
 }
-
