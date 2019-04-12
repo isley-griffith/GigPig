@@ -27,7 +27,7 @@ public class User{
      * Create a new user
      */
     public User(){
-    	this.bio = "";
+    	this.bio = "no boi rn";
         this.userJobs = new ArrayList<Job>();
         this.pastJobs = new ArrayList<Job>();
         this.ratings = new ArrayList<Double>();

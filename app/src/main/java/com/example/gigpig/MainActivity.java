@@ -10,15 +10,22 @@ import android.view.MenuItem;
 public class MainActivity extends AppCompatActivity
         implements BottomNavigationView.OnNavigationItemSelectedListener {
 
+    Fragment homeFragment;
+    Fragment searchFragment;
+    Fragment addFragment;
+    Fragment notificationsFragment;
+    Fragment profileFragment;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(this);
+
+
 
         loadFragment(new HomeFragment());
     }
