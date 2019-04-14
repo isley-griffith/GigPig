@@ -15,6 +15,7 @@ public class Job {
 	private ArrayList<String> tags;
 	private double latitude;
 	private double longitude;
+    private Date creationDate;
 
 	public Job() {
 
@@ -28,6 +29,7 @@ public class Job {
 		this.isTaken = false;
 		this.tags = tags;
 		this.location = location;
+		this.creationDate = new Date();
 	}
 
 	public Location createNewLocation(double longitude, double latitude) {
@@ -36,12 +38,13 @@ public class Job {
 		location.setLatitude(latitude);
 		return location;
 	}
+    public Date getDate() {
+        return creationDate;
+    }
 
 	public Location getLocation() {
 		return location;
 	}
-
-
 
 
 	public void takeJob(User doer) {
