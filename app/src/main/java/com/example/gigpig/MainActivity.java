@@ -32,8 +32,6 @@ public class MainActivity extends AppCompatActivity
         this.notificationsFragment = new NotificationsFragment();
         this.profileFragment = new ProfileFragment();
 
-        DatabaseHelper.prepareDatabasePostings();
-
         loadFragment(this.homeFragment);
     }
 

@@ -20,9 +20,9 @@ public class Job {
 
     }
 
-	public Job(String title, String desc, double payout, User creator, ArrayList<String> tags, Location location) {
-		this.jobTitle = title;
-		this.description = desc;
+	public Job(String jobTitle, String description, double payout, User creator, ArrayList<String> tags, Location location) {
+		this.jobTitle = jobTitle;
+		this.description = description;
 		this.payout = payout;
 		this.isComplete = false;
 		this.isTaken = false;
