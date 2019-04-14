@@ -1,65 +1,11 @@
 package com.example.gigpig;
+import android.location.Location;
+
 import java.util.ArrayList;
 
 public class User{
 
-    public String getFirstName() {
-        return firstName;
-    }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getPhoneNum() {
-        return phoneNum;
-    }
-
-    public void setPhoneNum(String phoneNum) {
-        this.phoneNum = phoneNum;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getBio() {
-        return bio;
-    }
-
-    public void setBio(String bio) {
-        this.bio = bio;
-    }
-
-    private String firstName;
-    private String lastName;
-    private String phoneNum;
-    private String username;
-    private String password;
-
-    public void setTags(ArrayList<String> tags) {
-        this.tags = tags;
-    }
 
     private ArrayList<String> tags;
     private String bio;
@@ -75,6 +21,7 @@ public class User{
     
     private static final int MAX_USER_JOBS = 5;
     private static final int MAX_BIO_LENGTH = 500;
+    private Location dummyLoc = new Location("dummy");
 
     /**
      * Create a new user
@@ -180,7 +127,7 @@ public class User{
     	} else if (pay < 1) {
     		return 3;
     	} else {
-    		Job newJob = new Job(jobName, description, pay, this, tags);
+    		Job newJob = new Job(jobName, description, pay, this, tags, dummyLoc);
     		this.userJobs.add(newJob);					// Adds job to user's job offerings
     		return 1;
     	}
@@ -213,7 +160,63 @@ public class User{
     	this.userHasJob = false;
     	pastJobs.add(userTakenJob);
     }
-    
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getPhoneNum() {
+        return phoneNum;
+    }
+
+    public void setPhoneNum(String phoneNum) {
+        this.phoneNum = phoneNum;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
+
+    private String firstName;
+    private String lastName;
+    private String phoneNum;
+    private String username;
+    private String password;
+
+    public void setTags(ArrayList<String> tags) {
+        this.tags = tags;
+    }
     
 
 }

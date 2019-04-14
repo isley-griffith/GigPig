@@ -153,7 +153,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         Job job = new Job("Goats",
                 "Need someone who is experienced with goat care to work one day cleaning stalls" +
                         ", feeding etc.",
-                50, user, tags);
+                50, user, tags, null);
 
         this.jobsList.add(job);
 
@@ -167,7 +167,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
                         "another one\n" +
                         "the idea is that the cells will adjust their size automatically based on the" +
                         "size of the job posting",
-                12, user, tags);
+                12, user, tags, null);
 
         this.jobsList.add(job);
 
@@ -179,7 +179,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         job = new Job("Lost cat",
                 "REWARD: Need someone to find my cat. Lost somewhere in monument creek." +
                         "He responds to Jimmy",
-                100, user, tags);
+                100, user, tags, null);
 
         this.jobsList.add(job);
 
@@ -189,7 +189,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
 
         job = new Job("A nothing thing",
                 "Test sort alphabetically",
-                0, user, tags);
+                0, user, tags, null);
 
         this.jobsList.add(job);
 
@@ -200,7 +200,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         job = new Job("Clean with my cleaning supplies",
                 "Need someone with a lot of cleaning experience to clean my kitchen floor" +
                         "\n I will supply cleaning materials",
-                20, user, tags);
+                20, user, tags, null);
 
         this.jobsList.add(job);
 

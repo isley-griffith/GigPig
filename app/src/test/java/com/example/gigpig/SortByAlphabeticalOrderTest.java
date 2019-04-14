@@ -20,9 +20,9 @@ public class SortByAlphabeticalOrderTest {
         ArrayList<String> tags = new ArrayList<String>();
         User user = new User();
 
-        Job job = new Job("YOOOOO WASH MY stuff", "needa wash buddy", 3.20, user, tags);
-        Job job1 = new Job("AAAAYOOOOO WASH MY stuff", "needa wash buddy", 3.20, user, tags);
-        Job job2 = new Job("BAAYOOOOO WASH MY stuff", "needa wash buddy", 3.20, user, tags);
+        Job job = new Job("YOOOOO WASH MY stuff", "needa wash buddy", 3.20, user, tags, null);
+        Job job1 = new Job("AAAAYOOOOO WASH MY stuff", "needa wash buddy", 3.20, user, tags, null);
+        Job job2 = new Job("BAAYOOOOO WASH MY stuff", "needa wash buddy", 3.20, user, tags, null);
 
         jobs.add(job);
         jobs.add(job1);

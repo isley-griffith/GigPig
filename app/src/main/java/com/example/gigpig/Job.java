@@ -1,4 +1,6 @@
 package com.example.gigpig;
+import android.location.Location;
+
 import java.util.*;
 
 public class Job {
@@ -9,17 +11,34 @@ public class Job {
 	private boolean isTaken;
 	private User doer;
 	private User creator;
-
+	private Location location;
 	private ArrayList<String> tags;
+	private double latitude;
+	private double longitude;
 
-	public Job(String title, String desc, double payout, User creator, ArrayList<String> tags) {
+	public Job(String title, String desc, double payout, User creator, ArrayList<String> tags, Location location) {
 		this.jobTitle = title;
 		this.description = desc;
 		this.payout = payout;
 		this.isComplete = false;
 		this.isTaken = false;
 		this.tags = tags;
+		this.location = location;
 	}
+
+	public Location createNewLocation(double longitude, double latitude) {
+		Location location = new Location("dummy");
+		location.setLongitude(longitude);
+		location.setLatitude(latitude);
+		return location;
+	}
+
+	public Location getLocation() {
+		return location;
+	}
+
+
+
 
 	public void takeJob(User doer) {
 		this.doer = doer;

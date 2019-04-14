@@ -93,7 +93,7 @@ public class NewFragment extends Fragment {
         // placeholder
         User placeHolderUser = new User();
 
-        this.newJob = new Job(title, description, payout, placeHolderUser, tags);
+        this.newJob = new Job(title, description, payout, placeHolderUser, tags, null);
 
         String toSet = "Job '" + title + "' created successfully";
         this.success.setText(toSet);

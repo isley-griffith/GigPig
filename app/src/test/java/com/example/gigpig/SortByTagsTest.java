@@ -1,5 +1,7 @@
 package com.example.gigpig;
 
+import android.location.Location;
+
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -16,6 +18,9 @@ public class SortByTagsTest {
     @Test
     public void testSortByTags() {
 
+
+
+
         ArrayList<Job> jobs = new ArrayList<Job>();
         ArrayList<String> tags = new ArrayList<String>();
         User user = new User();
@@ -28,11 +33,12 @@ public class SortByTagsTest {
         ArrayList<String> noTags = new ArrayList<String>();
         noTags.add("heya");
         noTags.add("pleasehelpmydad");
+        Location loc = new Location("dummy");
 
-        Job job = new Job("wash goat", "needa wash buddy", 3.20, user, tags);
-        Job job1 = new Job("clean floor", "needa wash buddy", 3.20, user, tags);
-        Job job2 = new Job("wash my cleaning supplies", "needa wash buddy", 3.20, user, tags);
-        Job job3 = new Job("buy my dad", "needa wash buddy", 3.20, user, noTags);
+        Job job = new Job("wash goat", "needa wash buddy", 3.20, user, tags, loc);
+        Job job1 = new Job("clean floor", "needa wash buddy", 3.20, user, tags, loc);
+        Job job2 = new Job("wash my cleaning supplies", "needa wash buddy", 3.20, user, tags, loc);
+        Job job3 = new Job("buy my dad", "needa wash buddy", 3.20, user, noTags, loc);
 
         jobs.add(job);
         jobs.add(job1);
