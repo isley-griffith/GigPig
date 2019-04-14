@@ -9,11 +9,13 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
 
 
@@ -30,7 +32,9 @@ import java.util.List;
 
 import static android.content.ContentValues.TAG;
 
-public class HomeFragment extends Fragment implements AdapterView.OnItemSelectedListener, ValueEventListener {
+public class HomeFragment extends Fragment implements AdapterView.OnItemSelectedListener,
+                            ValueEventListener,
+                            View.OnKeyListener {
 
     private ArrayList<Job> jobsList;
 
@@ -38,10 +42,11 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
     private JobAdapter mAdapter;
 
     private Spinner sortSelection;
+    private EditText searchBar;
 
     private SortingStrategy sortingStrategy;
 
-    public int test;
+    private String searchText;
 
     @Nullable
     @Override
@@ -50,6 +55,8 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
 
         this.jobsList = new ArrayList<Job>();
         this.sortingStrategy = new SortByAlphabeticalOrder();
+
+        searchText = "";
 
         DatabaseReference dataRef = FirebaseDatabase.getInstance().getReference("jobs");
 
@@ -85,15 +92,25 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
+
+        searchBar = getView().findViewById(R.id.search_bar);
+        searchBar.setOnKeyListener(this);
     }
 
     @Override
     public void onDataChange(DataSnapshot dataSnapshot) {
         // Get Job object and use the values to update the UI
+
         this.jobsList.clear();
         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
             Job job = snapshot.getValue(Job.class);
-            this.jobsList.add(job);
+
+            if (this.searchText.equals(""))
+                this.jobsList.add(job);
+            else if (job.getJobTitle().contains(this.searchText)
+                    || job.getTags().contains(this.searchText))
+                this.jobsList.add(job);
+
         }
         this.mAdapter.updateContents(this.sortingStrategy.sort(this.jobsList));
         this.mAdapter.notifyDataSetChanged();
@@ -106,6 +123,36 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         // Getting Post failed, log a message
         Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
         // ...
+    }
+
+    @Override
+    public boolean onKey(View view, int keyCode, KeyEvent event) {
+        if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
+                (keyCode == KeyEvent.KEYCODE_ENTER)) {
+            // Perform action on key press
+
+            System.out.println("DSGFKJHSDGFJGSDFJHKGDSHJFGSDHFGDSKJHFGSHFJDKGFKDSJHGFDHSKJF");
+
+            this.searchText = this.searchBar.getText().toString();
+
+            ArrayList<Job> tempJobList = new ArrayList<>();
+
+            for (Job job : jobsList) {
+                if (job.getJobTitle().contains(this.searchText)
+                        || job.getTags().contains(this.searchText))
+                    tempJobList.add(job);
+            }
+
+            if (this.searchText.equals(""))
+                this.mAdapter.updateContents(this.sortingStrategy.sort(this.jobsList));
+            else
+                this.mAdapter.updateContents(this.sortingStrategy.sort(tempJobList));
+
+            this.mAdapter.notifyDataSetChanged();
+
+            return true;
+        }
+        return false;
     }
 
     @Override

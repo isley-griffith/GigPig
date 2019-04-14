@@ -16,4 +16,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
+    <EditText
+        android:id="@+id/search_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_toStartOf="@+id/sortSelection"
+        android:layout_toLeftOf="@+id/sortSelection"
+        android:hint="Search"
+        android:inputType="textLongMessage" />
+
 </RelativeLayout>
