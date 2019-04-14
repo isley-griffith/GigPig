@@ -1,7 +1,10 @@
 package com.example.gigpig;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.StrictMode;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -15,8 +18,12 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import android.os.AsyncTask;
+
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class HomeFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
@@ -29,6 +36,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
 
     private SortingStrategy sortingStrategy;
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -37,6 +45,30 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         this.jobsList = new ArrayList<Job>();
         this.sortingStrategy = new SortByAlphabeticalOrder();
 
+//        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+//        StrictMode.setThreadPolicy(policy);
+
+//        Thread thread = new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                Database database = new Database();
+//            }
+//        });
+
+
+//        ConnectTask database = new ConnectTask();
+//        database.execute();
+
+        System.out.println("WE DIDNT CRASHHHHHHHHHHHHHHHHHHHHHHHHHHHH");
+
+//        try {
+//            this.database = new Database();
+//            this.jobsList = this.database.getAvailableJobs("barry_generic");
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+
+//        System.out.println("\n\n\n\nJOBLIST" + jobsList);
         this.jobsList = this.sortingStrategy.sort(this.jobsList);
 
         return view;
@@ -51,6 +83,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         List<String> sortMethods = new ArrayList<>();
         sortMethods.add("Sort by my tags");
         sortMethods.add("Sort alphabetically");
+        sortMethods.add("Sort by date");
 
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, sortMethods);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -92,10 +125,10 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
             case "Sort alphabetically":
                 this.sortingStrategy = new SortByAlphabeticalOrder();
                 break;
+//            case "Sort by date":
+//                this.sortingStrategy = new SortByDateStrategy();
+//                break;
         }
-
-//        this.jobsList.clear();
-//        this.jobsList.add(job);
 
         ArrayList<Job> sortList = this.sortingStrategy.sort(this.jobsList);
 

@@ -2,6 +2,7 @@ package com.example.gigpig;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -33,6 +34,11 @@ public class MainActivity extends AppCompatActivity
 
 
         loadFragment(this.homeFragment);
+    }
+
+    @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
     }
 
     private boolean loadFragment(Fragment fragment) {
