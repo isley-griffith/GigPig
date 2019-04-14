@@ -36,6 +36,7 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.MyViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        if (jobsList.get(position) == null) return;
         Job job = jobsList.get(position);
 
         holder.title.setText(job.getTitle());

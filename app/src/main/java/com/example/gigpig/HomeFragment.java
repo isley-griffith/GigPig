@@ -1,6 +1,7 @@
 package com.example.gigpig;
 
 import android.os.Bundle;
+import android.renderscript.Sampler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -23,22 +24,24 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
 import static android.content.ContentValues.TAG;
 
-public class HomeFragment extends Fragment implements AdapterView.OnItemSelectedListener {
+public class HomeFragment extends Fragment implements AdapterView.OnItemSelectedListener, ValueEventListener {
 
     private ArrayList<Job> jobsList;
 
     private RecyclerView recyclerView;
-    private  JobAdapter mAdapter;
+    private JobAdapter mAdapter;
 
     private Spinner sortSelection;
 
     private SortingStrategy sortingStrategy;
 
+    public int test;
 
     @Nullable
     @Override
@@ -48,29 +51,9 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         this.jobsList = new ArrayList<Job>();
         this.sortingStrategy = new SortByAlphabeticalOrder();
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("message");
+        DatabaseReference dataRef = FirebaseDatabase.getInstance().getReference("jobs");
 
-        myRef.setValue("Hello, World!");
-
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                String value = dataSnapshot.getValue(String.class);
-                Log.d(TAG, "Value is: " + value);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w(TAG, "Failed to read value.", error.toException());
-            }
-        });
-
-
-        this.jobsList = this.sortingStrategy.sort(this.jobsList);
+        dataRef.addValueEventListener(this);
 
         return view;
     }
@@ -102,8 +85,27 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
+    }
 
-        preparePostings();
+    @Override
+    public void onDataChange(DataSnapshot dataSnapshot) {
+        // Get Job object and use the values to update the UI
+        this.jobsList.clear();
+        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+            Job job = snapshot.getValue(Job.class);
+            this.jobsList.add(job);
+        }
+        this.mAdapter.updateContents(this.sortingStrategy.sort(this.jobsList));
+        this.mAdapter.notifyDataSetChanged();
+
+        // ...
+    }
+
+    @Override
+    public void onCancelled(DatabaseError databaseError) {
+        // Getting Post failed, log a message
+        Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+        // ...
     }
 
     @Override
@@ -126,9 +128,9 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
             case "Sort alphabetically":
                 this.sortingStrategy = new SortByAlphabeticalOrder();
                 break;
-//            case "Sort by date":
+            case "Sort by date":
 //                this.sortingStrategy = new SortByDateStrategy();
-//                break;
+                break;
         }
 
         ArrayList<Job> sortList = this.sortingStrategy.sort(this.jobsList);

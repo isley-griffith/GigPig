@@ -16,6 +16,10 @@ public class Job {
 	private double latitude;
 	private double longitude;
 
+	public Job() {
+
+    }
+
 	public Job(String title, String desc, double payout, User creator, ArrayList<String> tags, Location location) {
 		this.jobTitle = title;
 		this.description = desc;
@@ -45,9 +49,51 @@ public class Job {
 		this.isTaken = true;
 	}
 
+    public void setPayout(double payout) {
+        this.payout = payout;
+    }
 
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public ArrayList<String> getTags() {
+    public String getJobTitle() {
+        return jobTitle;
+    }
+
+    public void setJobTitle(String jobTitle) {
+        this.jobTitle = jobTitle;
+    }
+
+    public void setComplete(boolean complete) {
+        isComplete = complete;
+    }
+
+    public void setTaken(boolean taken) {
+        isTaken = taken;
+    }
+
+    public User getDoer() {
+        return doer;
+    }
+
+    public void setDoer(User doer) {
+        this.doer = doer;
+    }
+
+    public User getCreator() {
+        return creator;
+    }
+
+    public void setCreator(User creator) {
+        this.creator = creator;
+    }
+
+    public void setTags(ArrayList<String> tags) {
+        this.tags = tags;
+    }
+
+    public ArrayList<String> getTags() {
 		return tags;
 	}
 
