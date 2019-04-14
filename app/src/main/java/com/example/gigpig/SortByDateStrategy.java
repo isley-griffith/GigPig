@@ -10,7 +10,7 @@ import java.util.Date;
 public class SortByDateStrategy implements SortingStrategy {
     public class SortByDate implements Comparator<Job> {
         public int compare(Job job, Job job2) {
-            return job.getDate().compareTo(job2.getDate());
+            return job2.getCreationDate().compareTo(job.getCreationDate());
         }
     }
 

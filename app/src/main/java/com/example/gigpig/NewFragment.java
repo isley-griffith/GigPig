@@ -46,6 +46,7 @@ public class NewFragment extends Fragment {
         this.success = getView().findViewById(R.id.success);
 
         this.createJobButton = getView().findViewById(R.id.createJobButton);
+        this.createJobButton.setText("Create Posting");
         this.createJobButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -93,9 +94,11 @@ public class NewFragment extends Fragment {
         // placeholder
         User placeHolderUser = new User();
 
-        this.newJob = new Job(title, description, payout, placeHolderUser, tags, null);
+        this.newJob = new Job("" + title + "", description, payout, placeHolderUser, tags, null);
+//        this.newJob = new Job(" a new one", "hard coded descr", 30, placeHolderUser, tags, null);
 
-        String toSet = "Job '" + title + "' created successfully";
-        this.success.setText(toSet);
+
+
+        DatabaseHelper.writeNewJob(this.newJob);
     }
 }

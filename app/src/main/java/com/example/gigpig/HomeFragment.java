@@ -129,7 +129,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
                 this.sortingStrategy = new SortByAlphabeticalOrder();
                 break;
             case "Sort by date":
-//                this.sortingStrategy = new SortByDateStrategy();
+                this.sortingStrategy = new SortByDateStrategy();
                 break;
         }
 

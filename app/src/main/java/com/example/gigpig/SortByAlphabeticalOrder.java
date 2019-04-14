@@ -6,7 +6,7 @@ import java.util.Collections;
 public class SortByAlphabeticalOrder implements SortingStrategy {
     public class SortByName implements Comparator<Job> {
         public int compare(Job job, Job job2) {
-            return job.getTitle().compareTo(job2.getTitle());
+            return job.getJobTitle().compareTo(job2.getJobTitle());
         }
     }
 

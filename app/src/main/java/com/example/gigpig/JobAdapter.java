@@ -8,14 +8,16 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.view.View;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class JobAdapter extends RecyclerView.Adapter<JobAdapter.MyViewHolder> {
 
     private ArrayList<Job> jobsList;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView title, description, price, tags;
+        public TextView title, description, price, tags, date;
 
         public MyViewHolder(View view) {
             super(view);
@@ -23,6 +25,7 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.MyViewHolder> {
             description = (TextView) view.findViewById(R.id.description);
             price = (TextView) view.findViewById(R.id.price);
             tags = view.findViewById(R.id.tags);
+            date = view.findViewById(R.id.date);
         }
     }
 
@@ -39,9 +42,16 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.MyViewHolder> {
         if (jobsList.get(position) == null) return;
         Job job = jobsList.get(position);
 
-        holder.title.setText(job.getTitle());
+        holder.title.setText(job.getJobTitle());
         holder.description.setText(job.getDescription());
         holder.tags.setText(job.getTags().toString());
+
+        Date date = new Date(job.getCreationDate());
+        SimpleDateFormat formatDate = new SimpleDateFormat("dd/MM/yy HH:mm");
+        String displayDate = "Listed on " + formatDate.format(date);
+
+        holder.date.setText(displayDate);
+
 
         holder.price.setText("$" + String.format("%.2f", job.getPayout()));
 
