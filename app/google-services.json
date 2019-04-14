@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "807186763797",
+    "firebase_url": "https://gigpig-f1ee5.firebaseio.com",
+    "project_id": "gigpig-f1ee5",
+    "storage_bucket": "gigpig-f1ee5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:807186763797:android:9e60ba81da3a8f13",
+        "android_client_info": {
+          "package_name": "com.example.gigpig"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "807186763797-ns3k3rekdq806mpkvuh2kklq5add7ulq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBOFuYp1o3dgS3fDgFKfkpgm1lpgzvbX-Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "807186763797-ns3k3rekdq806mpkvuh2kklq5add7ulq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
