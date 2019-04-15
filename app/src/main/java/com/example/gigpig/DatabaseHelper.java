@@ -9,6 +9,7 @@ import com.google.firebase.database.FirebaseDatabase;
  */
 public class DatabaseHelper {
 
+
     /**
      * Writes a job to the firebase database
      * @param job The job that will be written to the database
