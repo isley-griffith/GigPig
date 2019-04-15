@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.view.View;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -21,9 +20,9 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.MyViewHolder> {
 
         public MyViewHolder(View view) {
             super(view);
-            title = (TextView) view.findViewById(R.id.title);
-            description = (TextView) view.findViewById(R.id.description);
-            price = (TextView) view.findViewById(R.id.price);
+            title = view.findViewById(R.id.title);
+            description = view.findViewById(R.id.description);
+            price = view.findViewById(R.id.price);
             tags = view.findViewById(R.id.tags);
             date = view.findViewById(R.id.date);
         }

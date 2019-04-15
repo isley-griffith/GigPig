@@ -32,7 +32,7 @@ import java.util.Arrays;
 
 public class NewFragment extends Fragment implements OnMapReadyCallback {
 
-    TextView newLable;
+    TextView newLabel;
     TextView success;
 
     EditText jobTitleInput;
@@ -60,14 +60,14 @@ public class NewFragment extends Fragment implements OnMapReadyCallback {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        this.newLable = getView().findViewById(R.id.newLabel);
-        this.newLable.setTextSize(14);
-        this.newLable.setText("New Job Listing");
+        this.newLabel = getView().findViewById(R.id.newLabel);
+        this.newLabel.setTextSize(14);
+        this.newLabel.setText("New Job Listing");
 
         this.success = getView().findViewById(R.id.success);
 
         this.createJobButton = getView().findViewById(R.id.createJobButton);
-        this.createJobButton.setText("Create Posting");
+        this.createJobButton.setText("Create posting");
         this.createJobButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
