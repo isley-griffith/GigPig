@@ -3,6 +3,9 @@ import java.util.Comparator;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * Strategy to sort jobs by alphabetical order
+ */
 public class SortByAlphabeticalOrder implements SortingStrategy {
     /**
      * Comparator method that sets the rules for the sort function

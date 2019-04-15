@@ -8,6 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+/**
+ * Fragment to manage notifications view
+ */
 public class NotificationsFragment extends Fragment {
 
     @Nullable

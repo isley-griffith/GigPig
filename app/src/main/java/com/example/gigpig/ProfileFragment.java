@@ -17,15 +17,18 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+/**
+ * Fragment to manage profile fragment
+ */
 public class ProfileFragment extends Fragment implements ValueEventListener {
 
-    TextView nameField;
-    TextView usernameField;
-    TextView phonenumberField;
-    TextView interestsField;
-    TextView bioField;
+    private TextView nameField;
+    private TextView usernameField;
+    private TextView phonenumberField;
+    private TextView interestsField;
+    private TextView bioField;
 
-    User currentUser;
+    private User currentUser;
 
     @Nullable
     @Override

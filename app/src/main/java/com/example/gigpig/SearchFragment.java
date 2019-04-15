@@ -10,6 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+/**
+ * Fragment to manage search view
+ */
 public class SearchFragment extends Fragment implements View.OnKeyListener {
 
     EditText search_bar;

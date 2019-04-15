@@ -31,22 +31,25 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * Fragment to manage a new fragment
+ */
 public class NewFragment extends Fragment implements OnMapReadyCallback {
 
-    TextView newLabel;
-    TextView success;
+    private TextView newLabel;
+    private TextView success;
 
-    EditText jobTitleInput;
-    EditText jobDescriptionInput;
-    EditText jobPriceInput;
-    EditText jobTagsInput;
+    private EditText jobTitleInput;
+    private EditText jobDescriptionInput;
+    private EditText jobPriceInput;
+    private EditText jobTagsInput;
 
-    Button createJobButton;
+    private Button createJobButton;
 
-    MapView mapView;
-    GoogleMap googleMap;
+    private MapView mapView;
+    private GoogleMap googleMap;
 
-    Job newJob;
+    private Job newJob;
 
     private static final String MAP_VIEW_BUNDLE_KEY = "MapViewBundleKey";
 

@@ -3,6 +3,9 @@ import android.location.Location;
 
 import java.util.*;
 
+/**
+ * Strategy to sort jobs by closest location
+ */
 public class SortByLocationStrategy implements SortingStrategy {
     private Location userLoc;
     /**

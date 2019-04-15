@@ -11,6 +11,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * Class to help put jobs in list
+ */
 public class JobAdapter extends RecyclerView.Adapter<JobAdapter.MyViewHolder> {
 
     private ArrayList<Job> jobsList;

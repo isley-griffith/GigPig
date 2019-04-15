@@ -4,6 +4,9 @@ import java.util.Collections;
 import java.util.Comparator;
 
 
+/**
+ * Strategy to sort jobs by tags
+ */
 public class SortByTagsStrategy implements SortingStrategy {
     private ArrayList<String> tags;
     public SortByTagsStrategy(ArrayList<String> tags) {

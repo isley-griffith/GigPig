@@ -7,6 +7,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 
+/**
+ * Strategy to sort jobs by date
+ */
 public class SortByDateStrategy implements SortingStrategy {
     /**
      * Comparator method that sets the rules for the sort function

@@ -32,6 +32,9 @@ import java.util.List;
 
 import static android.content.ContentValues.TAG;
 
+/**
+ * Home view fragment
+ */
 public class HomeFragment extends Fragment implements AdapterView.OnItemSelectedListener,
                             ValueEventListener,
                             View.OnKeyListener {

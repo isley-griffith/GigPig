@@ -4,6 +4,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 
+/**
+ * Class to write objects to the database
+ */
 public class DatabaseHelper {
 
     /**
@@ -15,8 +18,12 @@ public class DatabaseHelper {
         database.child("jobs").push().setValue(job);
     }
 
+    /**
+     * Writes a user to the firebase database
+     * @param user
+     */
     public static void writeNewUser(User user) {
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-        database.child("users").child("current_user").setValue(user);
+        database.child("users").push().setValue(user);
     }
 }

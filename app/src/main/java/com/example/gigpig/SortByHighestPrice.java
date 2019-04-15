@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+/**
+ * Strategy to sort jobs by highest price
+ */
 public class SortByHighestPrice implements SortingStrategy {
     /**
      * Comparator method that sets the rules for the sort function
