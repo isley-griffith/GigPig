@@ -22,6 +22,7 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
@@ -91,18 +92,18 @@ public class NewFragment extends Fragment implements OnMapReadyCallback {
 
     }
 
-//    @Override
-//    public void onSaveInstanceState(@NonNull Bundle outState) {
-//        super.onSaveInstanceState(outState);
-//
-//        Bundle mapViewBundle = outState.getBundle(MAP_VIEW_BUNDLE_KEY);
-//        if (mapViewBundle == null) {
-//            mapViewBundle = new Bundle();
-//            outState.putBundle(MAP_VIEW_BUNDLE_KEY, mapViewBundle);
-//        }
-//
-//        this.mapView.onSaveInstanceState(mapViewBundle);
-//    }
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        Bundle mapViewBundle = outState.getBundle(MAP_VIEW_BUNDLE_KEY);
+        if (mapViewBundle == null) {
+            mapViewBundle = new Bundle();
+            outState.putBundle(MAP_VIEW_BUNDLE_KEY, mapViewBundle);
+        }
+
+        this.mapView.onSaveInstanceState(mapViewBundle);
+    }
 
     @Override
     public void onResume() {
@@ -126,17 +127,17 @@ public class NewFragment extends Fragment implements OnMapReadyCallback {
         this.mapView.onPause();
         super.onPause();
     }
-    @Override
-    public void onDestroy() {
-        this.mapView.onDestroy();
-        super.onDestroy();
-    }
-
-    @Override
-    public void onDestroyView() {
-        this.mapView.onDestroy();
-        super.onDestroyView();
-    }
+//    @Override
+//    public void onDestroy() {
+//        this.mapView.onDestroy();
+//        super.onDestroy();
+//    }
+//
+//    @Override
+//    public void onDestroyView() {
+//        this.mapView.onDestroy();
+//        super.onDestroyView();
+//    }
 
     @Override
     public void onLowMemory() {
@@ -145,10 +146,14 @@ public class NewFragment extends Fragment implements OnMapReadyCallback {
     }
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        if (googleMap == null) return;
+
         MapsInitializer.initialize(getContext());
 
         this.googleMap = googleMap;
         this.googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        UiSettings uiSettings = this.googleMap.getUiSettings();
+        uiSettings.setZoomControlsEnabled(true);
 //        this.googleMap.setMinZoomPreference(12);
 
         LatLng cc = new LatLng(38.848450, -104.822714);
