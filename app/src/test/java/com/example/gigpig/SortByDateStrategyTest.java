@@ -57,13 +57,13 @@ public class SortByDateStrategyTest {
 
         System.out.println("og dates: ");
         for (Job jobz : jobs) {
-            System.out.println(jobz.getDate());
+            System.out.println(jobz.getCreationDate());
         }
 
         ArrayList<Job> sorted_jobs_boi = sbd.sort(jobs);
         System.out.println("sorted_jobs_boi dates: ");
         for (Job jobz : sorted_jobs_boi) {
-            System.out.println(jobz.getDate());
+            System.out.println(jobz.getCreationDate());
         }
 
         assertEquals(sorted_jobs_boi, actually_sorted);

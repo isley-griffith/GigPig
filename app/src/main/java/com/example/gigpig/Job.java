@@ -4,7 +4,7 @@ import android.location.Location;
 import java.util.*;
 
 public class Job {
-	private double payout;
+	private Double payout;
 	private String description;
 	private String jobTitle;
 	private boolean isComplete;
@@ -21,7 +21,7 @@ public class Job {
 
     }
 
-	public Job(String jobTitle, String description, double payout, User creator, ArrayList<String> tags, Location location) {
+	public Job(String jobTitle, String description, Double payout, User creator, ArrayList<String> tags, Location location) {
 		this.jobTitle = jobTitle;
 		this.description = description;
 		this.payout = payout;
@@ -128,7 +128,7 @@ public class Job {
 
 	public String getDescription() { return this.description; }
 
-	public double getPayout() { return this.payout; }
+	public Double getPayout() { return this.payout; }
 
 }
 

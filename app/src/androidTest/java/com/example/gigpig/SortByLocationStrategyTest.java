@@ -57,23 +57,25 @@ public class SortByLocationStrategyTest {
         jobs.add(job1);
         jobs.add(job2);
 
-        ArrayList<Job> jobsShouldntBeModified = new ArrayList<Job>(jobs);
+        ArrayList<Job> JobsCorrectOrder = new ArrayList<Job>();
+        JobsCorrectOrder.add(job);
+        JobsCorrectOrder.add(job1);
+        JobsCorrectOrder.add(job2);
 
         SortingStrategy sbl = new SortByLocationStrategy(userLoc);
 
 
-        ArrayList<Job> actually_sorted = new ArrayList<Job>();
-        actually_sorted.add(job1);
-        actually_sorted.add(job2);
-        actually_sorted.add(job);
+//        ArrayList<Job> actually_sorted = new ArrayList<Job>();
+//        actually_sorted.add(job1);
+//        actually_sorted.add(job2);
+//        actually_sorted.add(job);
 
         ArrayList<Job> sorted_jobs_boi = sbl.sort(jobs);
         for (Job jobz : sorted_jobs_boi) {
             System.out.println(jobz.getLocation());
         }
 
-//        assertEquals(sorted_jobs_boi, actually_sorted);
-//        assertEquals(jobsShouldntBeModified, jobs);
+        assertEquals(sorted_jobs_boi, JobsCorrectOrder);
 
     }
 

@@ -10,7 +10,6 @@ public class SortByTagsStrategy implements SortingStrategy {
     public SortByTagsStrategy(ArrayList<String> tags) {
             this.tags = tags;
     }
-
     public ArrayList<Job> sort(ArrayList<Job> jobs) {
 
         ArrayList<Job> onlyTaggedJobs = new ArrayList<>();

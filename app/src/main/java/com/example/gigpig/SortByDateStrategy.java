@@ -14,7 +14,6 @@ public class SortByDateStrategy implements SortingStrategy {
         }
     }
 
-
     public ArrayList<Job> sort(ArrayList<Job> jobs) {
         ArrayList<Job> sortedDates = new ArrayList<Job>(jobs);
         Collections.sort(sortedDates, new SortByDateStrategy.SortByDate());

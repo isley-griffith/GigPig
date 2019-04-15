@@ -48,6 +48,8 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
 
     private String searchText;
 
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -75,6 +77,9 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         sortMethods.add("Sort by my tags");
         sortMethods.add("Sort alphabetically");
         sortMethods.add("Sort by date");
+        sortMethods.add("Sort by lowest price");
+        sortMethods.add("Sort by highest price");
+
 
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, sortMethods);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -178,6 +183,13 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
             case "Sort by date":
                 this.sortingStrategy = new SortByDateStrategy();
                 break;
+            case "Sort by lowest price":
+                this.sortingStrategy = new SortByLowestPrice();
+                break;
+            case "Sort by highest price":
+                this.sortingStrategy = new SortByHighestPrice();
+                break;
+
         }
 
         ArrayList<Job> sortList = this.sortingStrategy.sort(this.jobsList);
@@ -202,7 +214,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         Job job = new Job("Goats",
                 "Need someone who is experienced with goat care to work one day cleaning stalls" +
                         ", feeding etc.",
-                50, user, tags, null);
+                50.0, user, tags, null);
 
         this.jobsList.add(job);
 
@@ -216,7 +228,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
                         "another one\n" +
                         "the idea is that the cells will adjust their size automatically based on the" +
                         "size of the job posting",
-                12, user, tags, null);
+                12.0, user, tags, null);
 
         this.jobsList.add(job);
 
@@ -228,7 +240,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         job = new Job("Lost cat",
                 "REWARD: Need someone to find my cat. Lost somewhere in monument creek." +
                         "He responds to Jimmy",
-                100, user, tags, null);
+                100.0, user, tags, null);
 
         this.jobsList.add(job);
 
@@ -238,7 +250,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
 
         job = new Job("A nothing thing",
                 "Test sort alphabetically",
-                0, user, tags, null);
+                0.0, user, tags, null);
 
         this.jobsList.add(job);
 
@@ -249,7 +261,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         job = new Job("Clean with my cleaning supplies",
                 "Need someone with a lot of cleaning experience to clean my kitchen floor" +
                         "\n I will supply cleaning materials",
-                20, user, tags, null);
+                20.0, user, tags, null);
 
         this.jobsList.add(job);
 
