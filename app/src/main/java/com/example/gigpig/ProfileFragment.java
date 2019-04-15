@@ -9,9 +9,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends Fragment implements ValueEventListener {
 
     TextView nameField;
     TextView usernameField;
@@ -25,24 +31,24 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        ArrayList<String> tags = new ArrayList<>();
-        tags.add("goat");
-        tags.add("bmx");
 
-        this.currentUser = new User("Stefan",
-                "Bay",
-                "410-570-0592",
-                "stefan_bay",
-                tags,
-                "I like goats + bmx\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nsooooojfghsdghjgdjfghjsagfjhkgdsakjhghggfhdghjfdgsjdgfkhjsdgfkjsdhfgdsjkhgfshdgfsgdfjhsdfgjhsdghjsdgfjkhsdghskjdgfjhsgdhjks");
+        DatabaseReference dataRef = FirebaseDatabase.getInstance().getReference("users");
 
+        dataRef.addValueEventListener(this);
 
         return inflater.inflate(R.layout.fragment_profile, null);
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public void onDataChange(DataSnapshot dataSnapshot) {
+        // This method is called once with the initial value and again
+        // whenever data at this location is updated.
+        if (dataSnapshot == null)
+            return;
+        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+            if (snapshot == null) return;
+            this.currentUser = snapshot.getValue(User.class);
+        }
 
         this.nameField = getView().findViewById(R.id.nameField);
         this.usernameField = getView().findViewById(R.id.usernameField);
@@ -55,6 +61,17 @@ public class ProfileFragment extends Fragment {
         this.phonenumberField.setText(this.currentUser.getPhoneNum());
         this.interestsField.setText("Interests: " + this.currentUser.getTags().toString());
         this.bioField.setText(this.currentUser.getBio());
+    }
+
+    @Override
+    public void onCancelled(DatabaseError error) {
+        // Failed to read value
+        System.out.println("Failed to read value." + error.toException());
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
     }
 }

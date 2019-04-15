@@ -15,4 +15,8 @@ public class DatabaseHelper {
         database.child("jobs").push().setValue(job);
     }
 
+    public static void writeNewUser(User user) {
+        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+        database.child("users").child("current_user").setValue(user);
+    }
 }

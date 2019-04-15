@@ -3,5 +3,5 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
-
+    <string name="google_android_map_api_key">AIzaSyBme_odFDhNoKOBkQPfPtY-by0j3-xe4nY</string>
 </resources>

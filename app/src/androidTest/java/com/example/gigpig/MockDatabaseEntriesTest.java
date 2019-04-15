@@ -29,7 +29,7 @@ public class MockDatabaseEntriesTest {
         Job job = new Job("Goats",
                 "database: Need someone who is experienced with goat care to work one day cleaning stalls" +
                         ", feeding etc.",
-                50, user, tags, null);
+                50.0, user, tags, null);
 
         DatabaseHelper.writeNewJob(job);
 
@@ -43,7 +43,7 @@ public class MockDatabaseEntriesTest {
                         "another one\n" +
                         "the idea is that the cells will adjust their size automatically based on the" +
                         "size of the job posting",
-                12, user, tags, null);
+                12.0, user, tags, null);
 
         DatabaseHelper.writeNewJob(job);
 
@@ -55,7 +55,7 @@ public class MockDatabaseEntriesTest {
         job = new Job("Lost cat",
                 "database: REWARD: Need someone to find my cat. Lost somewhere in monument creek." +
                         "He responds to Jimmy",
-                100, user, tags, null);
+                100.0, user, tags, null);
 
         DatabaseHelper.writeNewJob(job);
 
@@ -65,7 +65,7 @@ public class MockDatabaseEntriesTest {
 
         job = new Job("A nothing thing",
                 "database: Test sort alphabetically",
-                0, user, tags, null);
+                0.0, user, tags, null);
 
         DatabaseHelper.writeNewJob(job);
 
@@ -76,7 +76,7 @@ public class MockDatabaseEntriesTest {
         job = new Job("Clean with my cleaning supplies",
                 "database: Need someone with a lot of cleaning experience to clean my kitchen floor" +
                         "\n I will supply cleaning materials",
-                20, user, tags, null);
+                20.0, user, tags, null);
 
         DatabaseHelper.writeNewJob(job);
     }

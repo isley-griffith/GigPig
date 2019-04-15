@@ -7,6 +7,8 @@
         android:id="@+id/nameField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         android:layout_marginTop="20dp"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
         tools:text="Firstname + LastName" />
@@ -15,6 +17,8 @@
         android:id="@+id/usernameField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         android:layout_below="@id/nameField"
         tools:text="username" />
 
@@ -22,6 +26,8 @@
         android:id="@+id/phonenumberField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         android:layout_below="@id/usernameField"
         tools:text="123-456-789" />
 
@@ -30,6 +36,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         android:layout_below="@id/phonenumberField"
         tools:text="tag tag tag tag tag" />
 
@@ -37,6 +45,8 @@
         android:layout_width="match_parent"
         android:layout_below="@id/interestsField"
         android:layout_marginTop="20dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         android:layout_height="wrap_content">
 
 
