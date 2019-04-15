@@ -8,9 +8,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
 /**
- * Example local unit test, which will execute on the development machine (host).
- *
- * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
+ * Unit test to sort by alphabetical order
+ * Creates a bunch of sample jobs to test from
  */
 public class SortByAlphabeticalOrderTest {
 

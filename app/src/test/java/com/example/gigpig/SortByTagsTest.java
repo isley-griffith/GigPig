@@ -9,18 +9,12 @@ import java.util.ArrayList;
 import static org.junit.Assert.*;
 
 /**
- * Example local unit test, which will execute on the development machine (host).
- *
- * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
+ * Unit test to sort by preferred tags
+ * Creates a bunch of sample jobs to test from
  */
 public class SortByTagsTest {
-
     @Test
     public void testSortByTags() {
-
-
-
-
         ArrayList<Job> jobs = new ArrayList<Job>();
         ArrayList<String> tags = new ArrayList<String>();
         User user = new User();

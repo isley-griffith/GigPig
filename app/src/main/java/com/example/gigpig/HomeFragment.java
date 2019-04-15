@@ -47,6 +47,12 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
     private SortingStrategy sortingStrategy;
 
     private String searchText;
+    private static final String TAGS = "Sort by my tags";
+    private static final String ALPHABETICALLY = "Sort alphabetically";
+    private static final String DATE = "Sort by date";
+    private static final String LOWEST_PRICE = "Sort by lowest price";
+    private static final String HIGHEST_PRICE = "Sort by highest price";
+
 
 
 
@@ -78,11 +84,11 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         sortSelection = getView().findViewById(R.id.sortSelection);
 
         List<String> sortMethods = new ArrayList<>();
-        sortMethods.add("Sort by my tags");
-        sortMethods.add("Sort alphabetically");
-        sortMethods.add("Sort by date");
-        sortMethods.add("Sort by lowest price");
-        sortMethods.add("Sort by highest price");
+        sortMethods.add(TAGS);
+        sortMethods.add(ALPHABETICALLY);
+        sortMethods.add(DATE);
+        sortMethods.add(LOWEST_PRICE);
+        sortMethods.add(HIGHEST_PRICE);
 
 
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, sortMethods);
@@ -178,19 +184,19 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
 
 
         switch (item) {
-            case "Sort by my tags":
+            case TAGS:
                 this.sortingStrategy = new SortByTagsStrategy(tags);
                 break;
-            case "Sort alphabetically":
+            case ALPHABETICALLY:
                 this.sortingStrategy = new SortByAlphabeticalOrder();
                 break;
-            case "Sort by date":
+            case DATE:
                 this.sortingStrategy = new SortByDateStrategy();
                 break;
-            case "Sort by lowest price":
+            case LOWEST_PRICE:
                 this.sortingStrategy = new SortByLowestPrice();
                 break;
-            case "Sort by highest price":
+            case HIGHEST_PRICE:
                 this.sortingStrategy = new SortByHighestPrice();
                 break;
 
@@ -268,9 +274,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
                 20.0, user, tags, null);
 
         this.jobsList.add(job);
-
-
         mAdapter.notifyDataSetChanged();
-    }
 
+    }
 }

@@ -12,9 +12,8 @@ import java.util.*;
 import android.location.Location;
 
 /**
- * Instrumented test, which will execute on an Android device.
- *
- * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
+ * Unit test to sort by closest job
+ * Creates a bunch of sample jobs to test from
  */
 @RunWith(AndroidJUnit4.class)
 public class SortByLocationStrategyTest {
