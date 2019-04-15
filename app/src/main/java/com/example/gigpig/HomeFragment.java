@@ -50,6 +50,10 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
 
 
 
+    /**
+     * Default android function that gets called when a view is created
+     * @return An instantiation of the home screen view
+     */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
