@@ -60,9 +60,6 @@ public class MainActivity extends AppCompatActivity
             case R.id.navigation_home:
                 fragment = this.homeFragment;
                 break;
-            case R.id.navigation_search:
-                fragment = this.searchFragment;
-                break;
             case R.id.navigation_new:
                 fragment = this.newFragment;
                 break;

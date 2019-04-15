@@ -153,7 +153,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
             ArrayList<Job> tempJobList = new ArrayList<>();
 
             for (Job job : jobsList) {
-                if (job.getJobTitle().contains(this.searchText)
+                if (job.getJobTitle().toLowerCase().contains(this.searchText.toLowerCase())
                         || job.getTags().contains(this.searchText))
                     tempJobList.add(job);
             }
@@ -177,10 +177,14 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         // placeholder
         ArrayList<String> tags = new ArrayList<>();
 
-        // tags to sort by!
-        tags.add("wash");
-        tags.add("clean");
-        tags.add("lost");
+        // tags to sort by! will replace with actual logged in user's intrests
+        tags.add("space");
+        tags.add("earth");
+        tags.add("astrophysics");
+        tags.add("physics");
+        tags.add("big");
+
+
 
 
         switch (item) {
