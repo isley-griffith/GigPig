@@ -128,6 +128,14 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         // Get Job object and use the values to update the UI
 
         this.jobsList.clear();
+
+
+        // Use this line to get jobs to display just for user. Not functional yet cause database doesnt
+        // look like its supposed to
+//        jobsList = DatabaseHelper.getPostedJobsForUser();
+
+
+        //In final implementation, comment out this loop
         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
             Job job = snapshot.getValue(Job.class);
 
@@ -138,6 +146,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
                 this.jobsList.add(job);
 
         }
+
 
         for (Job job : this.jobsList)
             if (job.getCreationDate() == null || job.getJobTitle() == null)

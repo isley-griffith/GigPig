@@ -1,9 +1,13 @@
 package com.example.gigpig;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,5 +37,28 @@ public class DatabaseHelper {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         String uId = mAuth.getUid();
         users.put(uId, user);
+    }
+
+    public static ArrayList<Job> getPostedJobsForUser() {
+        final ArrayList<Job> homeScreenJobs = new ArrayList<Job>();
+        final FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        final String uId = mAuth.getUid();
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("jobs");
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Job job = dataSnapshot.getValue(Job.class);
+                if((job.getInquirerId() != uId) && !(job.isComplete()) && !(job.isTaken())) {
+                    homeScreenJobs.add(job);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+        return homeScreenJobs;
     }
 }
