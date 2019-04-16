@@ -1,6 +1,8 @@
 package com.example.gigpig;
 import android.location.Location;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.util.*;
 
 public class Job {
@@ -9,12 +11,10 @@ public class Job {
 	private String jobTitle;
 	private boolean isComplete;
 	private boolean isTaken;
-	private User doer;
-	private User creator;
-	private Location location;
 	private ArrayList<String> tags;
-	private double latitude;
-	private double longitude;
+	private String inquirerId;
+	private String doerId;
+	private LatLng location;
     private Long creationDate;
 
 	public Job() {
@@ -26,17 +26,20 @@ public class Job {
 	 * @param jobTitle The title of the job
 	 * @param description Job's description
 	 * @param payout Job payout
-	 * @param creator The creator of the job
+	 * @param doerId id of inquirer. Comes from FirebaseAuthenticationn of user
 	 * @param tags Tags for the job
 	 * @param location Location of the job
 	 */
-	public Job(String jobTitle, String description, Double payout, User creator, ArrayList<String> tags, Location location) {
+	public Job(String jobTitle, String description, String inquirerId, String doerId, Double payout, ArrayList<String> tags, LatLng location) {
 		this.jobTitle = jobTitle;
 		this.description = description;
 		this.payout = payout;
 		this.isComplete = false;
+		this.doerId = doerId;
 		this.isTaken = false;
 		this.tags = tags;
+		this.inquirerId = inquirerId;
+		this.doerId = doerId;
 		this.location = location;
 		this.creationDate = System.currentTimeMillis();
 	}
@@ -74,17 +77,21 @@ public class Job {
 	 * Getter method for the location
 	 * @return Returns the job's location
 	 */
-	public Location getLocation() {
+	public LatLng getLocation() {
 		return location;
 	}
 
 	/**
 	 * Assigns a doer to the job, signaling that the job has been taken by a user
-	 * @param doer The user who has taken the job
+	 * @param doerId The user who has taken the job
 	 */
-	public void takeJob(User doer) {
-		this.doer = doer;
+	public void takeJobByDoer(String doerId) {
+		this.doerId = doerId;
 		this.isTaken = true;
+	}
+
+	public void jobDone(){
+		this.isComplete = true;
 	}
 
 	/**
@@ -127,23 +134,31 @@ public class Job {
         isTaken = taken;
     }
 
-    public User getDoer() {
-        return doer;
-    }
+	public void setPayout(Double payout) {
+		this.payout = payout;
+	}
 
-    public void setDoer(User doer) {
-        this.doer = doer;
-    }
+	public void setInquirerId(String inquirerId) {
+		this.inquirerId = inquirerId;
+	}
 
-    public User getCreator() {
-        return creator;
-    }
+	public void setDoerId(String doerId) {
+		this.doerId = doerId;
+	}
 
-    public void setCreator(User creator) {
-        this.creator = creator;
-    }
+	public void setLocation(LatLng location) {
+		this.location = location;
+	}
 
-    public void setTags(ArrayList<String> tags) {
+	public String getInquirerId() {
+		return inquirerId;
+	}
+
+	public String getDoerId() {
+		return doerId;
+	}
+
+	public void setTags(ArrayList<String> tags) {
         this.tags = tags;
     }
 
@@ -183,13 +198,6 @@ public class Job {
 		this.tags.add(tag);
 	}
 
-	/**
-	 * Rates the performance of the worker who completed the job
-	 * @param rating The rating the worker received
-	 */
-	public void rateDoerPerformance(double rating) {
-		doer.receivedRating(rating);
-	}
 
 
 	public String getDescription() { return this.description; }

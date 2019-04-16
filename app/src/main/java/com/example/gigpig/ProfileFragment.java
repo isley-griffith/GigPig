@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,8 +35,9 @@ public class ProfileFragment extends Fragment implements ValueEventListener {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
-        DatabaseReference dataRef = FirebaseDatabase.getInstance().getReference("users");
+        DatabaseReference dataRef = FirebaseDatabase.getInstance().getReference("users/" + mAuth.getUid());
 
         dataRef.addValueEventListener(this);
 

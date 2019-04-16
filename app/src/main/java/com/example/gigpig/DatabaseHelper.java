@@ -1,7 +1,11 @@
 package com.example.gigpig;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -24,7 +28,10 @@ public class DatabaseHelper {
      * @param user
      */
     public static void writeNewUser(User user) {
-        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-        database.child("users").push().setValue(user);
+        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("users");
+        Map<String, User> users = new HashMap<>();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        String uId = mAuth.getUid();
+        users.put(uId, user);
     }
 }

@@ -28,6 +28,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -49,6 +50,8 @@ public class NewFragment extends Fragment implements OnMapReadyCallback {
 
     private ScrollableMapView mapView;
     private GoogleMap googleMap;
+
+    private FirebaseAuth mAuth;
 
     private Job newJob;
 
@@ -192,11 +195,15 @@ public class NewFragment extends Fragment implements OnMapReadyCallback {
             return;
 
         ArrayList<String> tags = getTags();
+        mAuth = FirebaseAuth.getInstance();
 
-        // placeholder
-        User placeHolderUser = new User();
+        String inquirerId = mAuth.getUid();
+        String doerId = null;
 
-        this.newJob = new Job("" + title + "", description, payout, placeHolderUser, tags, null);
+        //Get LatLng from dropped pin
+        LatLng location = null;
+
+        this.newJob = new Job("" + title + "", description, inquirerId, doerId, payout, tags, location);
 //        this.newJob = new Job(" a new one", "hard coded descr", 30, placeHolderUser, tags, null);
 
 

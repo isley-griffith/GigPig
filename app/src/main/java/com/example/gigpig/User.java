@@ -1,6 +1,8 @@
 package com.example.gigpig;
 import android.location.Location;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.ArrayList;
 
 public class User{
@@ -41,7 +43,16 @@ public class User{
     }
 
 
-
+    /**
+     * User constructor
+     * @param uId
+     * @param firstname
+     * @param lastname
+     * @param phonenumber
+     * @param username
+     * @param tags
+     * @param bio
+     */
     public User(String uId, String firstname, String lastname, String phonenumber, String username, ArrayList<String> tags, String bio) {
         this.firstName = firstname;
         this.lastName = lastname;
@@ -113,26 +124,6 @@ public class User{
         return tags;
     }
 
-    /** Creates a new job
-     * @param jobName Job name
-     * @param description Job description
-     * @param pay Job payout
-     * @return 0 if description error (over 500 char), 2 if max jobs error (5 or more jobs active), 3 if 
-     * pay error (pay less than $1.00), 1 if successful;
-     */
-    public int createJob(String jobName, String description, double pay){
-    	if (description.length() > MAX_BIO_LENGTH ) {
-    		return 0;
-    	} else if (userJobs.size() >= MAX_USER_JOBS) {
-    		return 2;
-    	} else if (pay < 1) {
-    		return 3;
-    	} else {
-    		Job newJob = new Job(jobName, description, pay, this, tags, dummyLoc);
-    		this.userJobs.add(newJob);					// Adds job to user's job offerings
-    		return 1;
-    	}
-    }
     
     /** Allows the user to take a job. Will not allow the job to be taken if the job is already
      * taken or if the user already has an active job
@@ -143,7 +134,8 @@ public class User{
     	if (job.isTaken() || userHasJob || job.isComplete()) {
     		return false;
     	} else {
-    		job.takeJob(this);
+            FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    		job.takeJobByDoer(mAuth.getUid());
     		this.userTakenJob = job;
     		this.userHasJob = true;
     		return true;
