@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -38,8 +39,8 @@ import static android.content.ContentValues.TAG;
 public class HomeFragment extends Fragment implements AdapterView.OnItemSelectedListener,
                             ValueEventListener,
                             View.OnKeyListener {
-
     private ArrayList<Job> jobsList;
+    private ArrayList<Job> displayJobsList;
 
     private RecyclerView recyclerView;
     private JobAdapter mAdapter;
@@ -69,7 +70,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         View view =  inflater.inflate(R.layout.fragment_home, container, false);
 
         this.jobsList = new ArrayList<Job>();
-        this.sortingStrategy = new SortByAlphabeticalOrder();
+        this.sortingStrategy = new SortByDateStrategy();
 
         searchText = "";
 
@@ -98,14 +99,21 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         sortSelection.setAdapter(dataAdapter);
-        sortSelection.setSelection(1);
+        sortSelection.setSelection(2);
 
         sortSelection.setOnItemSelectedListener(this);
 
-        recyclerView = getView().findViewById(R.id.recycler_view);
         mAdapter = new JobAdapter(jobsList);
+        mAdapter.setOnTouchListener(new JobAdapter.TouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                System.out.println("CLICK CLICK CLICK CLICK CLICK");
+                return false;
+            }
+        });
         mAdapter.notifyDataSetChanged();
 
+        recyclerView = getView().findViewById(R.id.recycler_view);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -130,6 +138,10 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
                 this.jobsList.add(job);
 
         }
+
+        for (Job job : this.jobsList)
+            if (job.getCreationDate() == null || job.getJobTitle() == null)
+                return;
         this.mAdapter.updateContents(this.sortingStrategy.sort(this.jobsList));
         this.mAdapter.notifyDataSetChanged();
 
@@ -148,8 +160,6 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
                 (keyCode == KeyEvent.KEYCODE_ENTER)) {
             // Perform action on key press
-
-            System.out.println("DSGFKJHSDGFJGSDFJHKGDSHJFGSDHFGDSKJHFGSHFJDKGFKDSJHGFDHSKJF");
 
             this.searchText = this.searchBar.getText().toString();
 
@@ -188,8 +198,6 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         tags.add("big");
 
 
-
-
         switch (item) {
             case TAGS:
                 this.sortingStrategy = new SortByTagsStrategy(tags);
@@ -209,79 +217,14 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
 
         }
 
-        ArrayList<Job> sortList = this.sortingStrategy.sort(this.jobsList);
+        this.displayJobsList = this.sortingStrategy.sort(this.jobsList);
 
-        mAdapter.updateContents(sortList);
+        mAdapter.updateContents(this.displayJobsList);
         mAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
-
-    }
-
-    private void preparePostings() {
-
-        // placeholder
-        User user = new User();
-        ArrayList<String> tags = new ArrayList<>();
-        tags.add("goat");
-        tags.add("clean");
-
-        Job job = new Job("Goats",
-                "Need someone who is experienced with goat care to work one day cleaning stalls" +
-                        ", feeding etc.",
-                50.0, user, tags, null);
-
-        this.jobsList.add(job);
-
-        tags = new ArrayList<>();
-        tags.add("line");
-        tags.add("long");
-
-        job = new Job("Long job",
-                "This is to text a long job with multiple lines\n" +
-                        "Here's another line\n" +
-                        "another one\n" +
-                        "the idea is that the cells will adjust their size automatically based on the" +
-                        "size of the job posting",
-                12.0, user, tags, null);
-
-        this.jobsList.add(job);
-
-        tags = new ArrayList<>();
-        tags.add("find");
-        tags.add("cats");
-        tags.add("lost");
-
-        job = new Job("Lost cat",
-                "REWARD: Need someone to find my cat. Lost somewhere in monument creek." +
-                        "He responds to Jimmy",
-                100.0, user, tags, null);
-
-        this.jobsList.add(job);
-
-        tags = new ArrayList<>();
-        tags.add("an");
-        tags.add("nothing");
-
-        job = new Job("A nothing thing",
-                "Test sort alphabetically",
-                0.0, user, tags, null);
-
-        this.jobsList.add(job);
-
-        tags = new ArrayList<>();
-        tags.add("clean");
-        tags.add("windex");
-
-        job = new Job("Clean with my cleaning supplies",
-                "Need someone with a lot of cleaning experience to clean my kitchen floor" +
-                        "\n I will supply cleaning materials",
-                20.0, user, tags, null);
-
-        this.jobsList.add(job);
-        mAdapter.notifyDataSetChanged();
 
     }
 }

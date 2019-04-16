@@ -46,7 +46,7 @@ public class NewFragment extends Fragment implements OnMapReadyCallback {
 
     private Button createJobButton;
 
-    private MapView mapView;
+    private ScrollableMapView mapView;
     private GoogleMap googleMap;
 
     private Job newJob;
@@ -130,17 +130,6 @@ public class NewFragment extends Fragment implements OnMapReadyCallback {
         this.mapView.onPause();
         super.onPause();
     }
-//    @Override
-//    public void onDestroy() {
-//        this.mapView.onDestroy();
-//        super.onDestroy();
-//    }
-//
-//    @Override
-//    public void onDestroyView() {
-//        this.mapView.onDestroy();
-//        super.onDestroyView();
-//    }
 
     @Override
     public void onLowMemory() {
@@ -160,6 +149,15 @@ public class NewFragment extends Fragment implements OnMapReadyCallback {
 //        this.googleMap.setMinZoomPreference(12);
 
         LatLng cc = new LatLng(38.848450, -104.822714);
+        LatLng sydney = new LatLng(-33.852, 151.211);
+
+
+        googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+        googleMap.addMarker(new MarkerOptions().position(cc).title("Marker colorado"));
+
+
+
+
         this.googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(cc, 15));
     }
 
@@ -199,5 +197,13 @@ public class NewFragment extends Fragment implements OnMapReadyCallback {
 
 
         DatabaseHelper.writeNewJob(this.newJob);
+
+        this.success.setText("new job '" + title + "' created");
+        this.jobTitleInput.setText("");
+        this.jobDescriptionInput.setText("");
+        this.jobPriceInput.setText("");
+        this.jobTagsInput.setText("");
+
+
     }
 }

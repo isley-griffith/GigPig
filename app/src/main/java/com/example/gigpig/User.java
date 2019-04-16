@@ -23,6 +23,8 @@ public class User{
     private static final int MAX_BIO_LENGTH = 500;
     private Location dummyLoc = new Location("dummy");
 
+    private String uId;
+
     /**
      * Create a new user
      */
@@ -36,12 +38,11 @@ public class User{
         overallUserRating = 5;
         numberOfRatings = 0;
         this.tags = new ArrayList<String>();
-    	//TODO: Figure out what might be necessary here
     }
 
 
 
-    public User(String firstname, String lastname, String phonenumber, String username, ArrayList<String> tags, String bio) {
+    public User(String uId, String firstname, String lastname, String phonenumber, String username, ArrayList<String> tags, String bio) {
         this.firstName = firstname;
         this.lastName = lastname;
         this.phoneNum = phonenumber;
@@ -153,7 +154,15 @@ public class User{
     	return "";
     	//TODO: find someway to display a user's current job, Job toString
     }
-    
+
+    public String getuId() {
+        return uId;
+    }
+
+    public void setuId(String uId) {
+        this.uId = uId;
+    }
+
     public void jobCompleted() {
     	userJobs.remove(userTakenJob);
     	userTakenJob.jobCompleted();

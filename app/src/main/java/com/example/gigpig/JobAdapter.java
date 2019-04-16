@@ -3,7 +3,9 @@ package com.example.gigpig;
 import android.support.annotation.NonNull;
 import android.support.v7.view.menu.MenuView;
 import android.support.v7.widget.RecyclerView;
+import android.text.method.Touch;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.view.View;
@@ -18,7 +20,13 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.MyViewHolder> {
 
     private ArrayList<Job> jobsList;
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    private static TouchListener clickListener;
+
+    public interface TouchListener {
+        boolean onTouch(View view, MotionEvent motionEvent);
+    }
+
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnTouchListener {
         public TextView title, description, price, tags, date;
 
         public MyViewHolder(View view) {
@@ -29,6 +37,12 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.MyViewHolder> {
             tags = view.findViewById(R.id.tags);
             date = view.findViewById(R.id.date);
         }
+
+        @Override
+        public boolean onTouch(View view, MotionEvent motionEvent) {
+            clickListener.onTouch(view, motionEvent);
+            return true;
+        }
     }
 
     public JobAdapter(ArrayList<Job> jobsList) {
@@ -38,6 +52,7 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.MyViewHolder> {
     public void updateContents(ArrayList<Job> jobsList) {
         this.jobsList = jobsList;
     }
+
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
@@ -58,6 +73,10 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.MyViewHolder> {
         holder.price.setText("$" + String.format("%.2f", job.getPayout()));
 
 
+    }
+
+    public void setOnTouchListener(TouchListener clickListener) {
+        this.clickListener = clickListener;
     }
 
     @Override

@@ -1,79 +1,81 @@
 package com.example.gigpig;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
-import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
-/**
- * Main Activity of GigPig. Called when app starts.
- */
-public class MainActivity extends AppCompatActivity
-        implements BottomNavigationView.OnNavigationItemSelectedListener {
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
-    Fragment homeFragment;
-    Fragment searchFragment;
-    Fragment newFragment;
-    Fragment notificationsFragment;
-    Fragment profileFragment;
+import org.w3c.dom.Text;
+
+public class MainActivity extends Activity {
+
+    Button signInButton;
+    EditText usernameField;
+    EditText passwordField;
+    private FirebaseAuth mAuth;
 
 
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
+        usernameField = (EditText)findViewById(R.id.username);
+        passwordField = (EditText)findViewById(R.id.password);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+//        setContentView(R.layout.activity_login);
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(this);
+        Intent i = new Intent(getApplicationContext(), NavigationActivity.class);
+        startActivity(i);
 
-        this.homeFragment = new HomeFragment();
-        this.searchFragment = new SearchFragment();
-        this.newFragment = new NewFragment();
-        this.notificationsFragment = new NotificationsFragment();
-        this.profileFragment = new ProfileFragment();
-
-        loadFragment(this.homeFragment);
+        mAuth = FirebaseAuth.getInstance();
+//        FirebaseUser currentUser = mAuth.getCurrentUser();
+//        if(currentUser != null) {
+//            updateUI(currentUser);
+//        }
     }
 
-    @Override
-    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
+    public void signInButtonOnClick(View view) {
+        signInButton = (Button)findViewById(R.id.signin);
+        usernameField = (EditText)findViewById(R.id.username);
+        passwordField = (EditText)findViewById(R.id.password);
+        final TextView message = (TextView)findViewById(R.id.message);
+        String usernameText = usernameField.getText().toString();
+        String passwordText = passwordField.getText().toString();
+
+        mAuth.signInWithEmailAndPassword(usernameText, passwordText)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            message.setText("Success!");
+                            updateUI(user);
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            message.setText("Failed. Try Again.");
+                        }
+                    }
+                });
     }
 
-    private boolean loadFragment(Fragment fragment) {
-        if (fragment == null)
-            return false;
-
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragment_container, fragment)
-                .commit();
-
-        return true;
+    public void signUpButtonClicked(View view) {
+        Intent i = new Intent(getApplicationContext(), SignUpActivity.class);
+        startActivity(i);
     }
 
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        Fragment fragment = null;
-
-        switch (menuItem.getItemId()) {
-            case R.id.navigation_home:
-                fragment = this.homeFragment;
-                break;
-            case R.id.navigation_new:
-                fragment = this.newFragment;
-                break;
-            case R.id.navigation_notifications:
-                fragment = this.notificationsFragment;
-                break;
-            case R.id.navigation_profile:
-                fragment = this.profileFragment;
-                break;
+    public void updateUI(FirebaseUser currentUser) {
+        if(currentUser != null) {
+            Intent i = new Intent(getApplicationContext(), NavigationActivity.class);
+            startActivity(i);
         }
-
-        return loadFragment(fragment);
     }
+
 }
