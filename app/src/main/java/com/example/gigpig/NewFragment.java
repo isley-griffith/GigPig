@@ -140,6 +140,7 @@ public class NewFragment extends Fragment implements OnMapReadyCallback {
         super.onLowMemory();
         this.mapView.onLowMemory();
     }
+
     @Override
     public void onMapReady(GoogleMap gMap) {
         if (gMap == null) return;

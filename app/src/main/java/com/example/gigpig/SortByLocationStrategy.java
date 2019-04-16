@@ -18,8 +18,17 @@ public class SortByLocationStrategy implements SortingStrategy {
          * @return an int (-1, 0, 1)
          */
         public int compare(Job job, Job job2) {
-            Float dist1 = job.getLocation().distanceTo(userLoc);
-            Float dist2 = job2.getLocation().distanceTo(userLoc);
+            Location jobLoc = new Location("");
+            jobLoc.setLatitude(job.getLocation().latitude);
+            jobLoc.setLongitude(job.getLocation().longitude);
+
+            Location job2Loc = new Location("");
+            jobLoc.setLatitude(job2.getLocation().latitude);
+            jobLoc.setLongitude(job2.getLocation().longitude);
+
+
+            Float dist1 = jobLoc.distanceTo(userLoc);
+            Float dist2 = job2Loc.distanceTo(userLoc);
             return dist1.compareTo(dist2);
         }
     }

@@ -26,9 +26,10 @@ public class MainActivity extends Activity {
 
 
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
         usernameField = (EditText)findViewById(R.id.username);
         passwordField = (EditText)findViewById(R.id.password);
-        super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_login);
 
         Intent i = new Intent(getApplicationContext(), NavigationActivity.class);

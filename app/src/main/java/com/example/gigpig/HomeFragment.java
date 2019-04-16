@@ -104,13 +104,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         sortSelection.setOnItemSelectedListener(this);
 
         mAdapter = new JobAdapter(jobsList);
-        mAdapter.setOnTouchListener(new JobAdapter.TouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                System.out.println("CLICK CLICK CLICK CLICK CLICK");
-                return false;
-            }
-        });
+
         mAdapter.notifyDataSetChanged();
 
         recyclerView = getView().findViewById(R.id.recycler_view);
