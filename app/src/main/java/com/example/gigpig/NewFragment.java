@@ -21,6 +21,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.Projection;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -137,29 +138,33 @@ public class NewFragment extends Fragment implements OnMapReadyCallback {
         this.mapView.onLowMemory();
     }
     @Override
-    public void onMapReady(GoogleMap googleMap) {
-        if (googleMap == null) return;
-
+    public void onMapReady(GoogleMap gMap) {
+        if (gMap == null) return;
         MapsInitializer.initialize(getContext());
-
-        this.googleMap = googleMap;
-        this.googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        googleMap = gMap;
+        googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         UiSettings uiSettings = this.googleMap.getUiSettings();
         uiSettings.setZoomControlsEnabled(true);
+
+        this.googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+                mapView.setCurrentMarker(googleMap.addMarker(
+                        new MarkerOptions()
+                                .position(latLng).title("This will be the location of your job")));
+            }
+        });
+
+
 //        this.googleMap.setMinZoomPreference(12);
 
         LatLng cc = new LatLng(38.848450, -104.822714);
         LatLng sydney = new LatLng(-33.852, 151.211);
 
-
-        googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        googleMap.addMarker(new MarkerOptions().position(cc).title("Marker colorado"));
-
-
-
-
-        this.googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(cc, 15));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(cc, 15));
+        mapView.setCurrentMarker(googleMap.addMarker(new MarkerOptions().position(cc).title("This will be the location of your job")));
     }
+
 
     private ArrayList<String> getTags() {
         String tagsString = this.jobTagsInput.getText().toString();

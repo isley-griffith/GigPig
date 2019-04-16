@@ -93,6 +93,12 @@
                 android:hint="Tags"
                 android:inputType="textShortMessage" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Tap the map to set your job location: "/>
+
             <com.example.gigpig.ScrollableMapView
                 android:id="@+id/mapView"
                 android:layout_width="match_parent"

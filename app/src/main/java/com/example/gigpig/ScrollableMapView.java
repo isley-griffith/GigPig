@@ -9,10 +9,24 @@ import android.view.ViewParent;
 
 import com.google.android.gms.maps.GoogleMapOptions;
 import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.model.Marker;
 
 public class ScrollableMapView extends MapView {
 
     private ViewParent mViewParent;
+
+    private Marker currentMarker;
+
+    public Marker getCurrentMarker() {
+        return currentMarker;
+    }
+
+    public void setCurrentMarker(Marker currentMarker) {
+        if (this.currentMarker != null)
+            this.currentMarker.remove();
+
+        this.currentMarker = currentMarker;
+    }
 
     public ScrollableMapView(Context context) {
         super(context);
@@ -33,6 +47,8 @@ public class ScrollableMapView extends MapView {
     public ScrollableMapView(Context context, GoogleMapOptions options) {
         super(context, options);
     }
+
+
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
