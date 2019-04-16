@@ -95,14 +95,6 @@ public class Job {
 	}
 
 	/**
-	 * Setter method for the payout
-	 * @param payout The payout for the job
-	 */
-    public void setPayout(double payout) {
-        this.payout = payout;
-    }
-
-	/**
 	 * Setter method for the description
 	 * @param description The job description
 	 */

@@ -20,13 +20,7 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.MyViewHolder> {
 
     private ArrayList<Job> jobsList;
 
-    private static TouchListener clickListener;
-
-    public interface TouchListener {
-        boolean onTouch(View view, MotionEvent motionEvent);
-    }
-
-    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnTouchListener {
+    public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView title, description, price, tags, date;
 
         public MyViewHolder(View view) {
@@ -38,11 +32,6 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.MyViewHolder> {
             date = view.findViewById(R.id.date);
         }
 
-        @Override
-        public boolean onTouch(View view, MotionEvent motionEvent) {
-            clickListener.onTouch(view, motionEvent);
-            return true;
-        }
     }
 
     public JobAdapter(ArrayList<Job> jobsList) {
@@ -73,10 +62,6 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.MyViewHolder> {
         holder.price.setText("$" + String.format("%.2f", job.getPayout()));
 
 
-    }
-
-    public void setOnTouchListener(TouchListener clickListener) {
-        this.clickListener = clickListener;
     }
 
     @Override
