@@ -52,6 +52,7 @@ public class User{
      * @param bio a bio describing the user so that others may review
      */
     public User(String uId, String firstname, String lastname, String phonenumber, String username, ArrayList<String> tags, String bio) {
+        this.uId = uId;
         this.firstName = firstname;
         this.lastName = lastname;
         this.phoneNum = phonenumber;
