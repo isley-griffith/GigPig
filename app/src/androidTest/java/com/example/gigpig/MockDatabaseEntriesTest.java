@@ -19,6 +19,10 @@ import static org.junit.Assert.assertEquals;
 @RunWith(AndroidJUnit4.class)
 public class MockDatabaseEntriesTest {
 
+    /**
+     * When hard coding values, database does not behaive the same, i.e this could break sorting
+     * algorithms
+     */
     @Test
     public void createMockDataBaseEntries() {
         User user = new User();

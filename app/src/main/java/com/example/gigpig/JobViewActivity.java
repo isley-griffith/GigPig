@@ -175,7 +175,7 @@ public class JobViewActivity extends Activity implements OnMapReadyCallback, Val
      */
     protected void sendSMSMessage(View v) {
         System.out.println(this.phoneNo);
-        message = "Hello I would like to do your job";
+        message = "Hello! This message is automatically sent from someone who is interested in completing your job. They would like to inquire about the job: " + job.getJobTitle();
         try {
             final SmsManager smsManager = SmsManager.getDefault();
 
