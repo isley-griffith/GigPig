@@ -1,9 +1,12 @@
 package com.example.gigpig;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -40,7 +44,7 @@ import java.util.Arrays;
 /**
  * Fragment to manage a new fragment
  */
-public class NewFragment extends Fragment implements OnMapReadyCallback {
+public class NewFragment extends Fragment implements OnMapReadyCallback, LocationListener {
 
     private TextView newLabel;
     private TextView success;
@@ -59,6 +63,7 @@ public class NewFragment extends Fragment implements OnMapReadyCallback {
 
     private Job newJob;
     private LatLng startingLoc;
+    private LocationManager locationManager;
 
     /**
      * This contains a string to deal with our map view saved state, is unique thorughout the app
@@ -183,12 +188,43 @@ public class NewFragment extends Fragment implements OnMapReadyCallback {
             }
         });
 
+        try {
+            locationManager = (LocationManager)getActivity().getSystemService(Context.LOCATION_SERVICE);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5, this);
+        } catch (SecurityException se) {
+            se.printStackTrace();
+        }
 
         LatLng cc = new LatLng(38.848450, -104.822714);
+
         this.startingLoc = cc;
 
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(cc, DEFAULT_ZOOM));
         mapView.setCurrentMarker(googleMap.addMarker(new MarkerOptions().position(cc).title("This will be the location of your job")));
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        this.startingLoc = new LatLng(location.getLatitude(), location.getLongitude());
+        mapView.setCurrentMarker(googleMap.addMarker(new MarkerOptions().position(this.startingLoc).title("This will be the location of your job")));
+        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(this.startingLoc, DEFAULT_ZOOM));
+
+        locationManager.removeUpdates(this);
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+        Toast.makeText(getContext(), "Please Enable GPS and Internet", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
     }
 
     /**
