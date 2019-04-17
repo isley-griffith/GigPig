@@ -42,7 +42,8 @@ public class ProfileFragment extends Fragment implements ValueEventListener {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mAuth = FirebaseAuth.getInstance();
         this.uId = mAuth.getUid();
-        DatabaseReference dataRef = FirebaseDatabase.getInstance().getReference("users");
+        String path = "users";
+        DatabaseReference dataRef = FirebaseDatabase.getInstance().getReference(path);
 //        dataRef.addValueEventListener(this);
 
         dataRef.addValueEventListener(this);
@@ -55,6 +56,7 @@ public class ProfileFragment extends Fragment implements ValueEventListener {
         Intent i = new Intent(v.getContext(), MainActivity.class);
         startActivity(i);
     }
+
     @Override
     public void onDataChange(DataSnapshot dataSnapshot) {
         // This method is called once with the initial value and again
@@ -63,6 +65,7 @@ public class ProfileFragment extends Fragment implements ValueEventListener {
 
         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
             User user = snapshot.getValue(User.class);
+            System.out.println(user + user.getuId());
             if (user.getuId() == null)
                 continue;
 
@@ -79,6 +82,7 @@ public class ProfileFragment extends Fragment implements ValueEventListener {
 
         }
     }
+
 
     @Override
     public void onCancelled(DatabaseError error) {
