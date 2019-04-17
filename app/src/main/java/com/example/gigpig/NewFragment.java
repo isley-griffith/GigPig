@@ -50,6 +50,9 @@ public class NewFragment extends Fragment implements OnMapReadyCallback, Locatio
     private LatLng startingLoc;
     private LocationManager locationManager;
 
+    private static final String NEED_DESCRIPTION_MSG = "Please enter a job description";
+    private static final String NEED_TITLE_MSG = "Please enter a job title";
+
     /**
      * This contains a string to deal with our map view saved state, is unique thorughout the app
      */
@@ -237,16 +240,22 @@ public class NewFragment extends Fragment implements OnMapReadyCallback, Locatio
             payout = Float.valueOf(this.jobPriceInput.getText().toString());
 
         String description = this.jobDescriptionInput.getText().toString();
-
-        // job must have description
-        if (description.isEmpty())
-            return;
-
         String title = this.jobTitleInput.getText().toString();
 
         // job must have title
-        if (title.isEmpty())
+        if (title.isEmpty()) {
+            Toast.makeText(view.getContext(), NEED_TITLE_MSG,
+                    Toast.LENGTH_LONG).show();
             return;
+        }
+
+        // job must have description
+        if (description.isEmpty()) {
+            Toast.makeText(view.getContext(), NEED_DESCRIPTION_MSG,
+                    Toast.LENGTH_LONG).show();
+            return;
+        }
+
 
         ArrayList<String> tags = getTags();
         mAuth = FirebaseAuth.getInstance();
@@ -265,7 +274,11 @@ public class NewFragment extends Fragment implements OnMapReadyCallback, Locatio
 
         DatabaseHelper.writeNewJob(this.newJob);
 
-        this.success.setText("new job '" + title + "' created");
+        String success = "New job '" + title + "' created!";
+
+        Toast.makeText(view.getContext(), success,
+                Toast.LENGTH_LONG).show();
+
         this.jobTitleInput.setText("");
         this.jobDescriptionInput.setText("");
         this.jobPriceInput.setText("");

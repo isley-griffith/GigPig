@@ -16,6 +16,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
 
+/**
+ * Activity dealing with sign in / sign up
+ * If user is already signed in, will forward to NavigationActivity
+ */
 public class MainActivity extends Activity {
 
     Button signInButton;
@@ -23,7 +27,9 @@ public class MainActivity extends Activity {
     EditText passwordField;
     private FirebaseAuth mAuth;
 
-
+    /**
+     * Called upon creation
+     */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -40,6 +46,9 @@ public class MainActivity extends Activity {
         }
     }
 
+    /**
+     * Handle functionality when the sign in button is clicked
+     */
     public void signInButtonOnClick(View view) {
         signInButton = (Button)findViewById(R.id.signin);
         emailField = (EditText)findViewById(R.id.email);
@@ -71,11 +80,18 @@ public class MainActivity extends Activity {
         }
     }
 
+    /**
+     * Forwards view to handle signing up
+     */
     public void signUpButtonClicked(View view) {
         Intent i = new Intent(getApplicationContext(), SignUpActivity.class);
         startActivity(i);
     }
 
+    /**
+     * Will do nothing if there is no user signed in
+     * @param currentUser user to be signed in, null if user has not yet been verified
+     */
     public void updateUI(FirebaseUser currentUser) {
         if(currentUser != null) {
             Intent i = new Intent(getApplicationContext(), NavigationActivity.class);

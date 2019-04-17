@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -21,13 +22,13 @@ import java.util.Date;
 public class UserJobAdapter extends RecyclerView.Adapter<UserJobAdapter.MyViewHolder> {
 
     /**
-     * List of jobs to be displayed on the home screen
+     * List of jobs to be displayed on the profile page
      */
     private ArrayList<Job> jobsList;
     private View.OnClickListener clickListener;
 
     /**
-     * View representing an individual cell on the Home page
+     * View representing an individual cell on the profile page
      */
     public class MyViewHolder extends RecyclerView.ViewHolder {
         private TextView title, description, price, tags, date;
@@ -66,11 +67,11 @@ public class UserJobAdapter extends RecyclerView.Adapter<UserJobAdapter.MyViewHo
     }
 
     /**
-     * Called when the user taps on a job on the home screen
+     * Called when the user taps on a job
      * @param v the view we are working with
      * @param job the job tapped on
      */
-    private void jobOnClick(View v, Job job, int position) {
+    private void jobOnClick(View v, final Job job, int position) {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(v.getContext());
         alertDialog.setTitle("Delete entry");
         alertDialog.setMessage("Are you sure you want to delete this entry?");
@@ -108,7 +109,7 @@ public class UserJobAdapter extends RecyclerView.Adapter<UserJobAdapter.MyViewHo
     }
 
     /**
-     * Called when the RecyclerView on the Home page instantiates a job cell item
+     * Called when the RecyclerView on the profile page instantiates a job cell item
      * @param holder The cell to be binded to the displayed list
      * @param position The position in the list the cell will be displayed
      */

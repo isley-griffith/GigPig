@@ -66,9 +66,18 @@
 
     </ScrollView>
 
+    <TextView
+        android:id="@+id/my_jobs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bioScrollView"
+        android:textSize="16sp"
+        android:layout_centerHorizontal="true"
+        android:text="My jobs:  (tap to delete)"/>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view_profile"
-        android:layout_below="@id/bioScrollView"
+        android:layout_below="@id/my_jobs"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="10dp"

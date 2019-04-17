@@ -27,7 +27,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CountDownLatch;
 
 import static android.content.ContentValues.TAG;
 
@@ -246,10 +245,10 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
     }
 
     /**
-     * Called when nothing is selected on the spinner dropdown
+     * Manditory override: Called when nothing is selected on the spinner dropdown
      */
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
-
+        // do nothing
     }
 }

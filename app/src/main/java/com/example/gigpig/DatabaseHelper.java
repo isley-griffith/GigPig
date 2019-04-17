@@ -13,7 +13,7 @@ import com.google.firebase.database.ValueEventListener;
  */
 public class DatabaseHelper {
     /**
-     * Writes a job to the firebase databasex
+     * Writes a job to the firebase database
      * @param job The job that will be written to the database
      */
     public static void writeNewJob(Job job) {
@@ -31,8 +31,8 @@ public class DatabaseHelper {
     }
     /**
      * User can choose to delete a job from their own postings in their profile page.
-     * @param title
-     * @param uId
+     * @param title title of the post to delete
+     * @param uId uid of the user deleting
      */
     public static void deleteJobWithTitleFromUser(final String title, final String uId) {
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("jobs");
