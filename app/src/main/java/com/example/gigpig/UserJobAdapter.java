@@ -71,10 +71,6 @@ public class UserJobAdapter extends RecyclerView.Adapter<UserJobAdapter.MyViewHo
      * @param job the job tapped on
      */
     private void jobOnClick(View v, Job job, int position) {
-//        Intent specificJob = new Intent(v.getContext(), JobViewActivity.class);
-//        Bundle b = new Bundle();
-//        specificJob.putExtra("jobTappedOn", job);
-//        v.getContext().startActivity(specificJob);
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(v.getContext());
         alertDialog.setTitle("Delete entry");
         alertDialog.setMessage("Are you sure you want to delete this entry?");

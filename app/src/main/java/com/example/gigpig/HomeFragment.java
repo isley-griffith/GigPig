@@ -212,16 +212,6 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         return false;
     }
 
-    public void populateCurrentUser(DataSnapshot dataSnapshot, String currentUserId) {
-        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-            System.out.println(snapshot.child("uId").getValue(String.class));
-            if (snapshot.child("uId").getValue(String.class).equals(currentUserId)) {
-                this.currentUser = snapshot.child("uId").getValue(User.class);
-            }
-        }
-    }
-
-
     /**
      * Called when spinner drop down selection is tapped
      */

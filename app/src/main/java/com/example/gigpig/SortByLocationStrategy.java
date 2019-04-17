@@ -26,7 +26,6 @@ public class SortByLocationStrategy implements SortingStrategy {
             jobLoc.setLatitude(job2.getLocation().latitude);
             jobLoc.setLongitude(job2.getLocation().longitude);
 
-
             Float dist1 = jobLoc.distanceTo(userLoc);
             Float dist2 = job2Loc.distanceTo(userLoc);
             return dist1.compareTo(dist2);

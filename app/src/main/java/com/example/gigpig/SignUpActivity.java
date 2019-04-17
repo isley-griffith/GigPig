@@ -23,17 +23,29 @@ public class SignUpActivity extends Activity {
 
     private FirebaseAuth mAuth;
 
+    /**
+     * Sets the content view to the sign-up/login pagee
+     * @param savedInstanceState
+     */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mAuth = FirebaseAuth.getInstance();
         setContentView(R.layout.activity_signup);
     }
 
+    /**
+     * Method for pressing back when making an account.
+     * @param view
+     */
     public void backButtonPressed(View view) {
         Intent i = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(i);
     }
 
+    /**
+     * Method for "Sign up" button in the sign-up/login activity screen.
+     * @param view
+     */
     public void signUpButtonPressed(View view) {
         final String firstname = ((EditText)findViewById(R.id.firstname)).getText().toString();
         System.out.println(firstname);
@@ -78,6 +90,10 @@ public class SignUpActivity extends Activity {
 
     }
 
+    /**
+     * Method for updating the UI.
+     * @param user
+     */
     public void updateUI(FirebaseUser user) {
         if(user != null) {
             Intent i = new Intent(getApplicationContext(), NavigationActivity.class);

@@ -59,7 +59,6 @@ public class ScrollableMapView extends MapView {
         super(context, options);
     }
 
-
     /**
      * Here we override when the user scrolls on the map so that the parent ScrollView does
      * not take priority, we only want to interact with the map
