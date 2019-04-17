@@ -19,7 +19,7 @@ public class DatabaseHelper {
 
 
     /**
-     * Writes a job to the firebase database
+     * Writes a job to the firebase databasex
      * @param job The job that will be written to the database
      */
     public static void writeNewJob(Job job) {

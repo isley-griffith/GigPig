@@ -1,5 +1,7 @@
 package com.example.gigpig;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -18,6 +20,7 @@ import android.widget.TextView;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -81,7 +84,7 @@ public class NewFragment extends Fragment implements OnMapReadyCallback {
         this.createJobButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                createJob(view);
+                createJob(view); //this view is the job that's listed in Home
             }
         });
 
@@ -98,7 +101,6 @@ public class NewFragment extends Fragment implements OnMapReadyCallback {
         }
 
         this.newJob = null;
-
     }
 
     @Override
@@ -221,4 +223,14 @@ public class NewFragment extends Fragment implements OnMapReadyCallback {
         this.mapView.setCurrentMarker(googleMap.addMarker(new MarkerOptions().position(startingLoc).title("This will be the location of your job")));
 
     }
+//    googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener()) {
+//        public void onMapClick (LatLng point) {
+//        googleMap.setOnMapClickListener
+//    }
+//    }
+
+
+
 }
+
+

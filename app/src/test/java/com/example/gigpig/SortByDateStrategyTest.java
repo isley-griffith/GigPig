@@ -39,13 +39,13 @@ public class SortByDateStrategyTest {
             Job job1 = new Job("AAAAYOOOOO WASH MY stuff", "needa wash buddy", 3.20, user, tags, dummyLoc);
             Thread.sleep(2000);
             Job job2 = new Job("BAAYOOOOO WASH MY stuff", "needa wash buddy", 3.20, user, tags, dummyLoc);
-            jobs.add(job);
             jobs.add(job2);
             jobs.add(job1);
-
-            actually_sorted.add(job);
-            actually_sorted.add(job1);
+            jobs.add(job);
             actually_sorted.add(job2);
+            actually_sorted.add(job1);
+            actually_sorted.add(job);
+
 
         } catch (InterruptedException ex) {
             System.out.println("Interrupted exception");
