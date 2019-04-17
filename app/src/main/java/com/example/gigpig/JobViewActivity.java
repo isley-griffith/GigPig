@@ -40,6 +40,8 @@ public class JobViewActivity extends Activity implements OnMapReadyCallback {
         Intent i = getIntent();
         this.job = (Job)i.getSerializableExtra("jobTappedOn");
 
+
+
         System.out.println(this.job);
 
         userName = (TextView)findViewById(R.id.usernameID);
@@ -78,6 +80,7 @@ public class JobViewActivity extends Activity implements OnMapReadyCallback {
         if (gMap == null){
             return;
         }
+
         MapsInitializer.initialize(getApplicationContext());
         googleMap = gMap;
         googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);

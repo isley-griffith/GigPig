@@ -33,11 +33,11 @@ public class User{
      * Create a new user
      */
     public User(){
-    	this.bio = "no bio rn";
-        this.userJobs = new ArrayList<Job>();
-        this.pastJobs = new ArrayList<Job>();
-        this.userHasJob = false;
-        this.tags = new ArrayList<String>();
+//    	this.bio = "no bio rn";
+//        this.userJobs = new ArrayList<Job>();
+//        this.pastJobs = new ArrayList<Job>();
+//        this.userHasJob = false;
+//        this.tags = new ArrayList<String>();
     }
 
 

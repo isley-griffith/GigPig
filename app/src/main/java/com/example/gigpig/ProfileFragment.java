@@ -1,6 +1,7 @@
 package com.example.gigpig;
 
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -31,15 +32,18 @@ public class ProfileFragment extends Fragment implements ValueEventListener {
 
     private User currentUser;
 
+    String uId;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        this.uId = mAuth.getUid();
+        DatabaseReference dataRef = FirebaseDatabase.getInstance().getReference("users");
+//        dataRef.addValueEventListener(this);
 
-        DatabaseReference dataRef = FirebaseDatabase.getInstance().getReference("users/" + mAuth.getUid());
-
-        dataRef.addValueEventListener(this);
+        dataRef.addListenerForSingleValueEvent(this);
 
         return inflater.inflate(R.layout.fragment_profile, null);
     }
@@ -47,25 +51,26 @@ public class ProfileFragment extends Fragment implements ValueEventListener {
     @Override
     public void onDataChange(DataSnapshot dataSnapshot) {
         // This method is called once with the initial value and again
-        // whenever data at this location is updated.
-        if (dataSnapshot == null)
-            return;
+
+        if (dataSnapshot == null) return;
+
         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-            if (snapshot == null) return;
-            this.currentUser = snapshot.getValue(User.class);
+            User user = snapshot.getValue(User.class);
+            if (user.getuId() == null)
+                continue;
+
+            if (user.getuId().equals(uId))
+                this.currentUser = user;
         }
 
-        this.nameField = getView().findViewById(R.id.nameField);
-        this.usernameField = getView().findViewById(R.id.usernameField);
-        this.phonenumberField = getView().findViewById(R.id.phonenumberField);
-        this.interestsField = getView().findViewById(R.id.interestsField);
-        this.bioField = getView().findViewById(R.id.bioField);
+        if (this.currentUser != null) {
+            this.nameField.setText(this.currentUser.getFirstName() + " " + this.currentUser.getLastName());
+            this.usernameField.setText(this.currentUser.getUsername());
+            this.phonenumberField.setText(this.currentUser.getPhoneNum());
+            this.interestsField.setText("Interests: " + this.currentUser.getTags().toString());
+            this.bioField.setText(this.currentUser.getBio());
 
-        this.nameField.setText(this.currentUser.getFirstName() + " " + this.currentUser.getLastName());
-        this.usernameField.setText(this.currentUser.getUsername());
-        this.phonenumberField.setText(this.currentUser.getPhoneNum());
-        this.interestsField.setText("Interests: " + this.currentUser.getTags().toString());
-        this.bioField.setText(this.currentUser.getBio());
+        }
     }
 
     @Override
@@ -77,5 +82,11 @@ public class ProfileFragment extends Fragment implements ValueEventListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        this.nameField = getView().findViewById(R.id.nameField);
+        this.usernameField = getView().findViewById(R.id.usernameField);
+        this.phonenumberField = getView().findViewById(R.id.phonenumberField);
+        this.interestsField = getView().findViewById(R.id.interestsField);
+        this.bioField = getView().findViewById(R.id.bioField);
     }
 }

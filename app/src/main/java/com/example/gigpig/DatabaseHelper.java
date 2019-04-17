@@ -34,8 +34,11 @@ public class DatabaseHelper {
     public static void writeNewUser(User user) {
         DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("users");
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        String uId = mAuth.getUid();
-        usersRef.child(uId).setValue(user);
+        Map<String, User> userMap = new HashMap<>();
+        String uId = user.getuId();
+        userMap.put(uId, user);
+
+        usersRef.setValue(userMap);
     }
 
     /**
