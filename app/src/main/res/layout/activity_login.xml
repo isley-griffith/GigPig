@@ -46,7 +46,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="250dp"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="250px"
+        android:layout_marginLeft="70px"
         android:onClick="signInButtonOnClick"
         android:text="Sign In" />
 
@@ -55,7 +55,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="250px"
+        android:layout_marginRight="70px"
         android:layout_marginTop="250dp"
 
         android:onClick="signUpButtonClicked"
