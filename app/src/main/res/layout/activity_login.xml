@@ -45,7 +45,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="250dp"
-        android:layout_marginLeft="240px"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="250px"
         android:onClick="signInButtonOnClick"
         android:text="Sign In" />
 
@@ -53,8 +54,10 @@
         android:id="@+id/signup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="250px"
         android:layout_marginTop="250dp"
-        android:layout_marginLeft="580px"
+
         android:onClick="signUpButtonClicked"
         android:text="Sign Up" />
 
