@@ -33,12 +33,11 @@ public class MainActivity extends Activity {
 
 
         mAuth = FirebaseAuth.getInstance();
-
         //commenting these 4 lines in makes the user stay logged in even if they exit the app and reopen
-//        FirebaseUser currentUser = mAuth.getCurrentUser();
-//        if(currentUser != null) {
-//            updateUI(currentUser);
-//        }
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser != null) {
+            updateUI(currentUser);
+        }
     }
 
     public void signInButtonOnClick(View view) {
