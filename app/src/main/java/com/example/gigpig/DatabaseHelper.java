@@ -1,5 +1,7 @@
 package com.example.gigpig;
 
+import android.support.annotation.NonNull;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -35,6 +37,27 @@ public class DatabaseHelper {
         DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference();
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         usersRef.child("users").child(mAuth.getUid()).setValue(user);
+    }
+
+    public static void deleteJobWithTitleFromUser(final String title, final String uId) {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("jobs");
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    if (snapshot.child("inquirerId").getValue(String.class).equals(uId)
+                        && snapshot.child("jobTitle").getValue(String.class).equals(title)) {
+                        System.out.println("removing " + snapshot.getValue() + " from database");
+                        snapshot.getRef().removeValue();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     /**
