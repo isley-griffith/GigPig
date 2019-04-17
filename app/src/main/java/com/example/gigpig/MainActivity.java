@@ -30,12 +30,12 @@ public class MainActivity extends Activity {
 
         usernameField = (EditText)findViewById(R.id.username);
         passwordField = (EditText)findViewById(R.id.password);
-//        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_login);
 
-        Intent i = new Intent(getApplicationContext(), NavigationActivity.class);
-        startActivity(i);
 
         mAuth = FirebaseAuth.getInstance();
+
+        //commenting these 4 lines in makes the user stay logged in even if they exit the app and reopen
 //        FirebaseUser currentUser = mAuth.getCurrentUser();
 //        if(currentUser != null) {
 //            updateUI(currentUser);
