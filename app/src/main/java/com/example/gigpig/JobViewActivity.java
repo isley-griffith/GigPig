@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapsInitializer;
@@ -21,11 +22,21 @@ public class JobViewActivity extends Activity implements OnMapReadyCallback {
     private GoogleMap googleMap;
     private Button back;
     private Job job;
+    private EditText userName;
+    private EditText jobDescription;
+    private EditText priceOfJob;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_individualjob);
+        Intent i = getIntent();
+        this.job = (Job)i.getSerializableExtra("jobTappedOn");
+
+        System.out.println(this.job);
+
         back = (Button) findViewById(R.id.backButton);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,7 +67,7 @@ public class JobViewActivity extends Activity implements OnMapReadyCallback {
         googleMap.addMarker(new MarkerOptions().position(this.job.getLocation()).title("This job is located here:"));
     }
     private void backButtonOnClick() {
-        Intent i = new Intent(getApplicationContext(), HomeFragment.class);
+        Intent i = new Intent(getApplicationContext(), NavigationActivity.class);
         startActivity(i);
     }
 

@@ -1,5 +1,9 @@
 package com.example.gigpig;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.view.menu.MenuView;
 import android.support.v7.widget.RecyclerView;
@@ -45,13 +49,18 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.MyViewHolder> {
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    System.out.println("Clicked Clicked Clicked");
+                    jobOnClick(view, jobTappedOn);
                 }
             });
         }
 
     }
-
+    private void jobOnClick(View v, Job job) {
+        Intent specificJob = new Intent(v.getContext(), JobViewActivity.class);
+        Bundle b = new Bundle();
+        specificJob.putExtra("jobTappedOn", job);
+        v.getContext().startActivity(specificJob);
+    }
     public JobAdapter(ArrayList<Job> jobsList) {
         this.jobsList = jobsList;
     }

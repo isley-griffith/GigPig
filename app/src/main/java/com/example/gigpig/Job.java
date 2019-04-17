@@ -3,9 +3,10 @@ import android.location.Location;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class Job {
+public class Job implements Serializable {
 	private Double payout;
 	private String description;
 	private String jobTitle;
