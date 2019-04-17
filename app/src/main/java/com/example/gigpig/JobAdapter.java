@@ -7,6 +7,7 @@ import android.text.method.Touch;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.view.View;
 import java.text.SimpleDateFormat;
@@ -30,6 +31,14 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.MyViewHolder> {
             price = view.findViewById(R.id.price);
             tags = view.findViewById(R.id.tags);
             date = view.findViewById(R.id.date);
+
+            // calls when you tap on a button
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    System.out.println("Clicked Clicked Clicked");
+                }
+            });
         }
 
     }
