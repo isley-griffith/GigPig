@@ -50,7 +50,6 @@ public class Job implements Serializable {
 		this.isTaken = false;
 		this.tags = tags;
 		this.inquirerId = inquirerId;
-		this.doerId = doerId;
 		this.latitude = location.latitude;
 		this.longitude = location.longitude;
 		this.creationDate = System.currentTimeMillis();
