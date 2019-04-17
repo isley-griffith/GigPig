@@ -61,4 +61,25 @@ public class DatabaseHelper {
         });
         return homeScreenJobs;
     }
+
+    public static String getUsername(final String uId) {
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("users");
+        final String username = "";
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.getValue(User.class);
+                if(user.getuId().equals(uId)) {
+                    username.concat(user.getUsername());
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+        return username;
+    }
 }
