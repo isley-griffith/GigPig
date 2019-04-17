@@ -50,9 +50,14 @@ public class DatabaseHelper {
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Job job = dataSnapshot.getValue(Job.class);
-                if((job.getInquirerId() != uId) && !(job.isComplete()) && !(job.isTaken())) {
-                    homeScreenJobs.add(job);
+                if (dataSnapshot == null) return;
+
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Job job = snapshot.getValue(Job.class);
+                    System.out.println(job + job.getJobTitle());
+
+                    if (!(job.getInquirerId().equals(uId)))
+                        homeScreenJobs.add(job);
                 }
             }
 
@@ -77,9 +82,14 @@ public class DatabaseHelper {
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Job job = dataSnapshot.getValue(Job.class);
-                if(job.getInquirerId() == uId) {
-                    profileJobs.add(job);
+                if (dataSnapshot == null) return;
+
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Job job = snapshot.getValue(Job.class);
+                    System.out.println(job + job.getJobTitle());
+
+                    if (job.getInquirerId().equals(uId))
+                        profileJobs.add(job);
                 }
             }
 
@@ -93,14 +103,21 @@ public class DatabaseHelper {
 
     public static String getUsername(final String uId) {
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference("users");
         final String username = "";
+        DatabaseReference ref = database.getReference("users");
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                User user = dataSnapshot.getValue(User.class);
-                if(user.getuId().equals(uId)) {
-                    username.concat(user.getUsername());
+                if (dataSnapshot == null) return;
+
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    User user = snapshot.getValue(User.class);
+                    System.out.println(user + user.getuId());
+                    if (user.getuId() == null)
+                        continue;
+
+                    if (user.getuId().equals(uId))
+                        username.concat(user.getUsername());
                 }
             }
 
@@ -119,9 +136,16 @@ public class DatabaseHelper {
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                User user = dataSnapshot.getValue(User.class);
-                if(user.getuId().equals(uId)) {
-                    phoneNum.concat(user.getPhoneNum());
+                if (dataSnapshot == null) return;
+
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    User user = snapshot.getValue(User.class);
+                    System.out.println(user + user.getuId());
+                    if (user.getuId() == null)
+                        continue;
+
+                    if (user.getuId().equals(uId))
+                        phoneNum.concat(user.getPhoneNum());
                 }
             }
 

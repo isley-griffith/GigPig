@@ -44,7 +44,6 @@ public class ProfileFragment extends Fragment implements ValueEventListener {
         this.uId = mAuth.getUid();
         String path = "users";
         DatabaseReference dataRef = FirebaseDatabase.getInstance().getReference(path);
-//        dataRef.addValueEventListener(this);
 
         dataRef.addValueEventListener(this);
 
