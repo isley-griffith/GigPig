@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapsInitializer;
@@ -16,15 +17,19 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 public class JobViewActivity extends Activity implements OnMapReadyCallback {
     private ScrollableMapView mapView;
     private GoogleMap googleMap;
     private Button back;
     private Job job;
-    private EditText userName;
-    private EditText jobDescription;
-    private EditText priceOfJob;
+    private TextView userName;
+    private TextView jobDescription;
+    private TextView priceOfJob;
+    private TextView dateOfJob;
 
 
 
@@ -36,6 +41,21 @@ public class JobViewActivity extends Activity implements OnMapReadyCallback {
         this.job = (Job)i.getSerializableExtra("jobTappedOn");
 
         System.out.println(this.job);
+
+        userName = (TextView)findViewById(R.id.usernameID);
+        //userName.setText(DatabaseHelper.getUsername(job.getInquirerId())); //will be used once user ID's are implemented
+        userName.setText("Name: " + "bungus");
+
+
+        Date date = new Date(job.getCreationDate());
+        SimpleDateFormat formatDate = new SimpleDateFormat("dd/MM/yy HH:mm");
+        String displayDate = "Date posted: " + formatDate.format(date);
+        dateOfJob = (TextView)findViewById(R.id.datePostedID);
+        dateOfJob.setText(displayDate);
+        String formattedDescription = "Description: " + this.job.getDescription();
+        jobDescription = (TextView)findViewById(R.id.jobDescriptionID);
+        jobDescription.setText(formattedDescription);
+
 
         back = (Button) findViewById(R.id.backButton);
         back.setOnClickListener(new View.OnClickListener() {
