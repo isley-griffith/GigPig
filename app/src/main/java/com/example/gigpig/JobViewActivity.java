@@ -2,6 +2,8 @@ package com.example.gigpig;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -96,9 +98,10 @@ public class JobViewActivity extends Activity implements OnMapReadyCallback, Val
         openMessagingApp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendSMSMessage();
+                sendSMSMessage(v);
             }
         });
+
         this.mapView = findViewById(R.id.scrollableMapView);
 
         if (this.mapView != null) {
@@ -168,14 +171,33 @@ public class JobViewActivity extends Activity implements OnMapReadyCallback, Val
     /**
      * method invoked by OnClick() that delivers a text message to the user
      */
-    protected void sendSMSMessage() {
+    protected void sendSMSMessage(View v) {
         System.out.println(this.phoneNo);
         message = "Hello I would like to do your job";
         try {
-            SmsManager smsManager = SmsManager.getDefault();
-            smsManager.sendTextMessage(phoneNo, null, message, null, null);
-            Toast.makeText(getApplicationContext(), "SMS Sent!",
-                    Toast.LENGTH_LONG).show();
+            final SmsManager smsManager = SmsManager.getDefault();
+
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(v.getContext());
+            alertDialog.setTitle("Send SMS");
+            alertDialog.setMessage("Are you sure you want to send a text to " + this.userName.getText() + "?");
+//            final String jobTitle = job.getJobTitle();
+//            final String inquirerId = job.getInquirerId();
+
+            // Specifying a listener allows you to take an action before dismissing the dialog.
+            // The dialog is automatically dismissed when a dialog button is clicked.
+            alertDialog.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    smsManager.sendTextMessage(phoneNo, null, message, null, null);
+                    Toast.makeText(getApplicationContext(), "SMS Sent!",
+                            Toast.LENGTH_LONG).show();
+                }
+            });
+
+            // A null listener allows the button to dismiss the dialog and take no further action.
+            alertDialog.setNegativeButton(android.R.string.no, null);
+            alertDialog.setIcon(android.R.drawable.ic_dialog_alert);
+            alertDialog.show();
+
         } catch (Exception e) {
             Toast.makeText(getApplicationContext(),
                     "SMS faild, please try again later!",
