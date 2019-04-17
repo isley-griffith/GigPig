@@ -135,13 +135,6 @@ public class User{
         this.uId = uId;
     }
 
-    public void jobCompleted() {
-    	userJobs.remove(userTakenJob);
-    	userTakenJob.jobCompleted();
-    	this.userHasJob = false;
-    	pastJobs.add(userTakenJob);
-    }
-
     public String getFirstName() {
         return firstName;
     }

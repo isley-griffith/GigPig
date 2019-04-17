@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,6 +27,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
 
 import static android.content.ContentValues.TAG;
 
@@ -52,8 +54,9 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
     private static final String SORT_BY_DATE = "Sort by date";
     private static final String SORT_BY_LOWEST_PRICE = "Sort by lowest price";
     private static final String SORT_BY_HIGHEST_PRICE = "Sort by highest price";
+    private static final int STARTING_SORT_BY = 2;
 
-
+    private User currentUser;
 
 
     /**
@@ -73,6 +76,25 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         DatabaseReference dataRef = FirebaseDatabase.getInstance().getReference("jobs");
 
         dataRef.addValueEventListener(this);
+
+        final String userId = FirebaseAuth.getInstance().getUid();
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users");
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    User user = snapshot.getValue(User.class);
+                    if (user.getuId().equals(userId)) {
+                        currentUser = user;
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         return view;
     }
@@ -95,7 +117,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         sortSelection.setAdapter(dataAdapter);
-        sortSelection.setSelection(2);
+        sortSelection.setSelection(STARTING_SORT_BY);
 
         sortSelection.setOnItemSelectedListener(this);
 
@@ -126,18 +148,12 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         this.jobsList.clear();
 
 
-        // Use this line to get jobs to display just for user. Not functional yet cause database doesnt
-        // look like its supposed to
-//        jobsList = DatabaseHelper.getPostedJobsForUser();
-
-
-        //In final implementation, comment out this loop
         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
             Job job = snapshot.getValue(Job.class);
 
             if (this.searchText.equals(""))
                 this.jobsList.add(job);
-            else if (job.getJobTitle().contains(this.searchText)
+            else if (job.getJobTitle().contains(this.searchText) // we search based on tags and the titles of jobs
                     || job.getTags().contains(this.searchText))
                 this.jobsList.add(job);
 
@@ -196,6 +212,16 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         return false;
     }
 
+    public void populateCurrentUser(DataSnapshot dataSnapshot, String currentUserId) {
+        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+            System.out.println(snapshot.child("uId").getValue(String.class));
+            if (snapshot.child("uId").getValue(String.class).equals(currentUserId)) {
+                this.currentUser = snapshot.child("uId").getValue(User.class);
+            }
+        }
+    }
+
+
     /**
      * Called when spinner drop down selection is tapped
      */
@@ -203,20 +229,10 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         String item = adapterView.getItemAtPosition(i).toString();
 
-        // placeholder
-        ArrayList<String> tags = new ArrayList<>();
-
-        // tags to sort by! will replace with actual logged in user's intrests
-        tags.add("space");
-        tags.add("earth");
-        tags.add("astrophysics");
-        tags.add("physics");
-        tags.add("big");
-
 
         switch (item) {
             case SORT_BY_TAGS:
-                this.sortingStrategy = new SortByTagsStrategy(tags);
+                this.sortingStrategy = new SortByTagsStrategy(this.currentUser.getTags());
                 break;
             case SORT_BY_ALPHABETICALLY:
                 this.sortingStrategy = new SortByAlphabeticalOrder();
