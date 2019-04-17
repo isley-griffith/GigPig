@@ -1,13 +1,14 @@
 package com.example.gigpig;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,6 +30,8 @@ public class ProfileFragment extends Fragment implements ValueEventListener {
     private TextView phonenumberField;
     private TextView interestsField;
     private TextView bioField;
+    private Button signoutbutton;
+    private FirebaseAuth mAuth;
 
     private User currentUser;
 
@@ -37,8 +40,7 @@ public class ProfileFragment extends Fragment implements ValueEventListener {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
         this.uId = mAuth.getUid();
         DatabaseReference dataRef = FirebaseDatabase.getInstance().getReference("users");
 //        dataRef.addValueEventListener(this);
@@ -48,6 +50,11 @@ public class ProfileFragment extends Fragment implements ValueEventListener {
         return inflater.inflate(R.layout.fragment_profile, null);
     }
 
+    public void signOutButtonClicked(View v) {
+        mAuth.signOut();
+        Intent i = new Intent(v.getContext(), MainActivity.class);
+        startActivity(i);
+    }
     @Override
     public void onDataChange(DataSnapshot dataSnapshot) {
         // This method is called once with the initial value and again
@@ -82,7 +89,13 @@ public class ProfileFragment extends Fragment implements ValueEventListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        signoutbutton = getView().findViewById(R.id.signoutbutton);
+        signoutbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signOutButtonClicked(v);
+            }
+        });
         this.nameField = getView().findViewById(R.id.nameField);
         this.usernameField = getView().findViewById(R.id.usernameField);
         this.phonenumberField = getView().findViewById(R.id.phonenumberField);
