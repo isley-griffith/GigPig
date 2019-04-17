@@ -178,6 +178,9 @@ public class NewFragment extends Fragment implements OnMapReadyCallback, Locatio
         googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         UiSettings uiSettings = this.googleMap.getUiSettings();
         uiSettings.setZoomControlsEnabled(true);
+        uiSettings.setTiltGesturesEnabled(false);
+        uiSettings.setMapToolbarEnabled(true);
+
 
         this.googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override

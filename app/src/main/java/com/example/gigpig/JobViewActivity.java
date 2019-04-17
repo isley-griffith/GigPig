@@ -44,9 +44,8 @@ public class JobViewActivity extends Activity implements OnMapReadyCallback, Val
     private TextView jobDescription;
     private TextView priceOfJob;
     private TextView dateOfJob;
+    private TextView jobPrice;
 
-    private String doerID;
-    private String inquirerID;
     private String phoneNo;
     private String message;
     private static final int MY_PERMISSIONS_REQUEST_SEND_SMS = 0;
@@ -61,12 +60,12 @@ public class JobViewActivity extends Activity implements OnMapReadyCallback, Val
 
 
 
-        inquirerID = this.job.getInquirerId();
         this.phoneNo = "";
 
         dateOfJob = findViewById(R.id.datePostedID);
         jobDescription = (TextView) findViewById(R.id.jobDescriptionID);
         userName = (TextView) findViewById(R.id.usernameID);
+        jobPrice = findViewById(R.id.jobPriceID);
 
         DatabaseReference dataRef = FirebaseDatabase.getInstance().getReference("users");
         dataRef.addValueEventListener(this);
@@ -85,6 +84,8 @@ public class JobViewActivity extends Activity implements OnMapReadyCallback, Val
         String formattedDescription = "Description: " + this.job.getDescription();
         jobDescription.setText(formattedDescription);
 
+        String formattedPrice = "Pays: " + this.job.getPayout();
+        jobPrice.setText(formattedPrice);
 
         back = (Button) findViewById(R.id.backButton);
         back.setOnClickListener(new View.OnClickListener() {
@@ -121,7 +122,6 @@ public class JobViewActivity extends Activity implements OnMapReadyCallback, Val
 
         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
             User user = snapshot.getValue(User.class);
-            System.out.println(user + user.getuId());
             if (user.getuId() == null)
                 continue;
 
@@ -155,8 +155,10 @@ public class JobViewActivity extends Activity implements OnMapReadyCallback, Val
         MapsInitializer.initialize(getApplicationContext());
         googleMap = gMap;
         googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        UiSettings uiSettings = this.googleMap.getUiSettings();
+        UiSettings uiSettings = googleMap.getUiSettings();
         uiSettings.setZoomControlsEnabled(true);
+        uiSettings.setTiltGesturesEnabled(false);
+        uiSettings.setMapToolbarEnabled(true);
 
         googleMap.addMarker(new MarkerOptions().position(this.job.getLocation()).title("This job is located here:"));
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(this.job.getLocation(), 15));
