@@ -23,6 +23,7 @@ public class Job implements Serializable {
 	private Double latitude;
 	private Double longitude;
     private Long creationDate;
+    private User userTest;
 
     /**
      * Empty constructor is necessary for Firebase to populate the contents upon data
@@ -53,6 +54,17 @@ public class Job implements Serializable {
 		this.latitude = location.latitude;
 		this.longitude = location.longitude;
 		this.creationDate = System.currentTimeMillis();
+	}
+
+	/**
+	 * Constructor for JUnit tests
+	 */
+	public Job(String jobTitle, String description, Double payout, User user, ArrayList<String> tags, Location location) {
+		this.jobTitle = jobTitle;
+		this.description = description;
+		this.payout = payout;
+		this.tags = tags;
+		this.userTest = user;
 	}
 
 	/**

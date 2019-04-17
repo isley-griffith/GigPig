@@ -170,6 +170,7 @@ public class DatabaseHelper {
                     if (user.getuId().equals(uId))
                         System.out.println("FOUND THAT " + uId + " IS EQUAL TO " + user.getuId());
                         phoneNum.concat(user.getPhoneNum());
+                        
                 }
             }
 

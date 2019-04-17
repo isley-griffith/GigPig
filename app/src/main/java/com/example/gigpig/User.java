@@ -41,6 +41,15 @@ public class User{
     }
 
 
+    public User(String firstName, String lastName, String phoneNum, String username, ArrayList<String> tags, String bio) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNum = phoneNum;
+        this.username = username;
+        this.bio = bio;
+        this.tags = tags;
+    }
+
     /**
      * User constructor
      * @param uId the unique ID associated with the user

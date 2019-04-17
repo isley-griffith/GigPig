@@ -30,7 +30,6 @@ public class WriteNewUserTest {
         tags.add("astrophysics");
         tags.add("physics");
         tags.add("big");
-
         User niel = new User("Niel",
                 "Tyson",
                 "719-548-1212",

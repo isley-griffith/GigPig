@@ -14,30 +14,37 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
-public class JobViewActivity extends Activity implements OnMapReadyCallback {
+public class JobViewActivity extends Activity implements OnMapReadyCallback, ValueEventListener {
     private ScrollableMapView mapView;
     private GoogleMap googleMap;
     private Button back;
     private Button openMessagingApp;
     private Job job;
     private User user;
+
     private TextView userName;
     private TextView jobDescription;
     private TextView priceOfJob;
     private TextView dateOfJob;
-    private EditText txtphoneNo;
-    private EditText txtMessage;
+
     private String doerID;
+    private String inquirerID;
     private String phoneNo;
     private String message;
     private static final int MY_PERMISSIONS_REQUEST_SEND_SMS = 0;
@@ -49,20 +56,31 @@ public class JobViewActivity extends Activity implements OnMapReadyCallback {
         setContentView(R.layout.activity_individualjob);
         Intent i = getIntent();
         this.job = (Job) i.getSerializableExtra("jobTappedOn");
-        System.out.println(this.job);
-        doerID = this.job.getDoerId();
-        this.phoneNo = DatabaseHelper.getNumber(doerID);
+
+
+
+        inquirerID = this.job.getInquirerId();
+        this.phoneNo = "";
+
+        dateOfJob = findViewById(R.id.datePostedID);
+        jobDescription = (TextView) findViewById(R.id.jobDescriptionID);
         userName = (TextView) findViewById(R.id.usernameID);
-        userName.setText("Name: " + DatabaseHelper.getUsername(job.getInquirerId())); //will be used once user ID's are implemented
+
+        DatabaseReference dataRef = FirebaseDatabase.getInstance().getReference("users");
+        dataRef.addValueEventListener(this);
+
+//        this.phoneNo = DatabaseHelper.getNumber(inquirerID);
+
+
+//        userName.setText(DatabaseHelper.getUsername(this.job.getInquirerId())); //will be used once user ID's are implemented
         //userName.setText("Name: " + "bungus");
 
         Date date = new Date(job.getCreationDate());
         SimpleDateFormat formatDate = new SimpleDateFormat("dd/MM/yy HH:mm");
         String displayDate = "Date posted: " + formatDate.format(date);
-        dateOfJob = (TextView) findViewById(R.id.datePostedID);
         dateOfJob.setText(displayDate);
+
         String formattedDescription = "Description: " + this.job.getDescription();
-        jobDescription = (TextView) findViewById(R.id.jobDescriptionID);
         jobDescription.setText(formattedDescription);
 
 
@@ -90,6 +108,37 @@ public class JobViewActivity extends Activity implements OnMapReadyCallback {
         }
     }
 
+    @Override
+    public void onDataChange(DataSnapshot dataSnapshot) {
+        // This method is called once with the initial value and again
+
+        if (dataSnapshot == null) return;
+
+        User poster = null;
+
+        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+            User user = snapshot.getValue(User.class);
+            System.out.println(user + user.getuId());
+            if (user.getuId() == null)
+                continue;
+
+            if (user.getuId().equals(this.job.getInquirerId()))
+                poster = user;
+        }
+
+        if (poster != null) {
+            this.userName.setText(poster.getUsername());
+
+            this.phoneNo = poster.getPhoneNum();
+        }
+    }
+
+    @Override
+    public void onCancelled(DatabaseError error) {
+        // Failed to read value
+        System.out.println("Failed to read value." + error.toException());
+    }
+
     /**
      * @param gMap
      * Method that, if the map is ready, will set specific directions for the default appearance of the map.
@@ -107,6 +156,8 @@ public class JobViewActivity extends Activity implements OnMapReadyCallback {
         uiSettings.setZoomControlsEnabled(true);
 
         googleMap.addMarker(new MarkerOptions().position(this.job.getLocation()).title("This job is located here:"));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(this.job.getLocation(), 15));
+
     }
 
     private void backButtonOnClick() {
@@ -114,7 +165,12 @@ public class JobViewActivity extends Activity implements OnMapReadyCallback {
         startActivity(i);
     }
 
+    /**
+     * method invoked by OnClick() that delivers a text message to the user
+     */
     protected void sendSMSMessage() {
+        System.out.println(this.phoneNo);
+        message = "Hello I would like to do your job";
         try {
             SmsManager smsManager = SmsManager.getDefault();
             smsManager.sendTextMessage(phoneNo, null, message, null, null);
@@ -128,10 +184,16 @@ public class JobViewActivity extends Activity implements OnMapReadyCallback {
         }
     }
 
+    /**
+     * @param requestCode
+     * @param permissions
+     * @param grantResults
+     * Method that asks user for permission to use SMS on the Android.
+     */
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
-            case 0: {
+            case MY_PERMISSIONS_REQUEST_SEND_SMS: {
                 if (grantResults.length > MY_PERMISSIONS_REQUEST_SEND_SMS
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     SmsManager smsManager = SmsManager.getDefault();
