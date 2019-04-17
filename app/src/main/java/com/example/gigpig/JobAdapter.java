@@ -23,6 +23,15 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.MyViewHolder> {
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView title, description, price, tags, date;
+        private Job jobTappedOn;
+
+        public Job getJob() {
+            return this.jobTappedOn;
+        }
+
+        public void setJob(Job job) {
+            this.jobTappedOn = job;
+        }
 
         public MyViewHolder(View view) {
             super(view);
@@ -67,10 +76,9 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.MyViewHolder> {
 
         holder.date.setText(displayDate);
 
-
         holder.price.setText("$" + String.format("%.2f", job.getPayout()));
 
-
+        holder.setJob(job);
     }
 
     @Override
