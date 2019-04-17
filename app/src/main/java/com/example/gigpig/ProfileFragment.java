@@ -45,7 +45,7 @@ public class ProfileFragment extends Fragment implements ValueEventListener {
         DatabaseReference dataRef = FirebaseDatabase.getInstance().getReference("users");
 //        dataRef.addValueEventListener(this);
 
-        dataRef.addListenerForSingleValueEvent(this);
+        dataRef.addValueEventListener(this);
 
         return inflater.inflate(R.layout.fragment_profile, null);
     }
@@ -89,6 +89,11 @@ public class ProfileFragment extends Fragment implements ValueEventListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        this.nameField = getView().findViewById(R.id.nameField);
+        this.usernameField = getView().findViewById(R.id.usernameField);
+        this.phonenumberField = getView().findViewById(R.id.phonenumberField);
+        this.interestsField = getView().findViewById(R.id.interestsField);
+        this.bioField = getView().findViewById(R.id.bioField);
         signoutbutton = getView().findViewById(R.id.signoutbutton);
         signoutbutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,10 +101,5 @@ public class ProfileFragment extends Fragment implements ValueEventListener {
                 signOutButtonClicked(v);
             }
         });
-        this.nameField = getView().findViewById(R.id.nameField);
-        this.usernameField = getView().findViewById(R.id.usernameField);
-        this.phonenumberField = getView().findViewById(R.id.phonenumberField);
-        this.interestsField = getView().findViewById(R.id.interestsField);
-        this.bioField = getView().findViewById(R.id.bioField);
     }
 }
