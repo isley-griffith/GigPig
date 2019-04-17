@@ -30,9 +30,7 @@ public class NavigationActivity extends AppCompatActivity
         navigation.setOnNavigationItemSelectedListener(this);
 
         this.homeFragment = new HomeFragment();
-        this.searchFragment = new SearchFragment();
         this.newFragment = new NewFragment();
-        this.notificationsFragment = new NotificationsFragment();
         this.profileFragment = new ProfileFragment();
 
         loadFragment(this.homeFragment);
@@ -65,9 +63,6 @@ public class NavigationActivity extends AppCompatActivity
                 break;
             case R.id.navigation_new:
                 fragment = this.newFragment;
-                break;
-            case R.id.navigation_notifications:
-                fragment = this.notificationsFragment;
                 break;
             case R.id.navigation_profile:
                 fragment = this.profileFragment;

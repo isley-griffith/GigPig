@@ -12,11 +12,6 @@
         android:title="New" />
 
     <item
-        android:id="@+id/navigation_notifications"
-        android:icon="@drawable/ic_public_black_24dp"
-        android:title="@string/title_notifications" />
-
-    <item
         android:id="@+id/navigation_profile"
         android:icon="@drawable/ic_sentiment_neutral_black_24dp"
         android:title="Profile" />
