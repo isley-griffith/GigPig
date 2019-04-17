@@ -102,8 +102,9 @@ public class DatabaseHelper {
     }
 
     public static String getUsername(final String uId) {
+        System.out.println("GetUsernamePASSEDuID:" + uId);
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        final String username = "";
+        final String username = "BUNGUS";
         DatabaseReference ref = database.getReference("users");
         ref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -112,11 +113,10 @@ public class DatabaseHelper {
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     User user = snapshot.getValue(User.class);
-                    System.out.println(user + user.getuId());
-                    if (user.getuId() == null)
-                        continue;
+                    System.out.println("USER:" + user.getuId());
 
                     if (user.getuId().equals(uId))
+                        System.out.println("FOUND THAT " + uId + " IS EQUAL TO " + user.getuId());
                         username.concat(user.getUsername());
                 }
             }
@@ -126,10 +126,12 @@ public class DatabaseHelper {
                 System.out.println("The read failed: " + databaseError.getCode());
             }
         });
+        System.out.println("RETURNING: " + username);
         return username;
     }
 
     public static String getNumber(final String uId) {
+        System.out.println("GetNumPASSEDuID:" + uId);
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("users");
         final String phoneNum = "";
@@ -140,11 +142,10 @@ public class DatabaseHelper {
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     User user = snapshot.getValue(User.class);
-                    System.out.println(user + user.getuId());
-                    if (user.getuId() == null)
-                        continue;
+                    System.out.println("USER:" + user.getuId());
 
                     if (user.getuId().equals(uId))
+                        System.out.println("FOUND THAT " + uId + " IS EQUAL TO " + user.getuId());
                         phoneNum.concat(user.getPhoneNum());
                 }
             }
@@ -154,6 +155,7 @@ public class DatabaseHelper {
                 System.out.println("The read failed: " + databaseError.getCode());
             }
         });
+        System.out.println("RETURNING: " + phoneNum);
         return phoneNum;
     }
 }
