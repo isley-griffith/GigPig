@@ -27,6 +27,7 @@ import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -54,6 +55,7 @@ public class NewFragment extends Fragment implements OnMapReadyCallback {
     private FirebaseAuth mAuth;
 
     private Job newJob;
+    private LatLng startingLoc;
 
     private static final String MAP_VIEW_BUNDLE_KEY = "MapViewBundleKey";
 
@@ -163,7 +165,7 @@ public class NewFragment extends Fragment implements OnMapReadyCallback {
 //        this.googleMap.setMinZoomPreference(12);
 
         LatLng cc = new LatLng(38.848450, -104.822714);
-        LatLng sydney = new LatLng(-33.852, 151.211);
+        this.startingLoc = cc;
 
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(cc, 15));
         mapView.setCurrentMarker(googleMap.addMarker(new MarkerOptions().position(cc).title("This will be the location of your job")));
@@ -202,7 +204,7 @@ public class NewFragment extends Fragment implements OnMapReadyCallback {
         String doerId = null;
 
         //Get LatLng from dropped pin
-        LatLng location = null;
+        LatLng location = mapView.getCurrentMarker().getPosition();
 
         this.newJob = new Job("" + title + "", description, inquirerId, doerId, payout, tags, location);
 //        this.newJob = new Job(" a new one", "hard coded descr", 30, placeHolderUser, tags, null);
@@ -216,7 +218,7 @@ public class NewFragment extends Fragment implements OnMapReadyCallback {
         this.jobDescriptionInput.setText("");
         this.jobPriceInput.setText("");
         this.jobTagsInput.setText("");
-
+        this.mapView.setCurrentMarker(googleMap.addMarker(new MarkerOptions().position(startingLoc).title("This will be the location of your job")));
 
     }
 }
