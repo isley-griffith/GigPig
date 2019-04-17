@@ -14,7 +14,8 @@ public class Job {
 	private ArrayList<String> tags;
 	private String inquirerId;
 	private String doerId;
-	private LatLng location;
+	private Double latitude;
+	private Double longitude;
     private Long creationDate;
 
 	public Job() {
@@ -40,7 +41,8 @@ public class Job {
 		this.tags = tags;
 		this.inquirerId = inquirerId;
 		this.doerId = doerId;
-		this.location = location;
+		this.latitude = location.latitude;
+		this.longitude = location.longitude;
 		this.creationDate = System.currentTimeMillis();
 	}
 
@@ -73,13 +75,6 @@ public class Job {
 	    this.creationDate = creationDate;
     }
 
-	/**
-	 * Getter method for the location
-	 * @return Returns the job's location
-	 */
-	public LatLng getLocation() {
-		return location;
-	}
 
 	/**
 	 * Assigns a doer to the job, signaling that the job has been taken by a user
@@ -138,8 +133,24 @@ public class Job {
 		this.doerId = doerId;
 	}
 
-	public void setLocation(LatLng location) {
-		this.location = location;
+	public Double getLatitude() {
+		return latitude;
+	}
+
+	public Double getLongitude() {
+		return longitude;
+	}
+
+	public void setLatitude(Double latitude) {
+		this.latitude = latitude;
+	}
+
+	public void setLongitude(Double longitude) {
+		this.longitude = longitude;
+	}
+
+	public LatLng getLocation() {
+		return new LatLng(latitude, longitude);
 	}
 
 	public String getInquirerId() {
