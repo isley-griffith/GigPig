@@ -111,4 +111,25 @@ public class DatabaseHelper {
         });
         return username;
     }
+
+    public static String getNumber(final String uId) {
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("users");
+        final String phoneNum = "";
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.getValue(User.class);
+                if(user.getuId().equals(uId)) {
+                    phoneNum.concat(user.getPhoneNum());
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+        return phoneNum;
+    }
 }
