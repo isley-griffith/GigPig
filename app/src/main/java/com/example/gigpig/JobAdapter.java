@@ -23,8 +23,14 @@ import java.util.Date;
  */
 public class JobAdapter extends RecyclerView.Adapter<JobAdapter.MyViewHolder> {
 
+    /**
+     * List of jobs to be displayed on the home screen
+     */
     private ArrayList<Job> jobsList;
 
+    /**
+     * View representing an individual cell on the Home page
+     */
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView title, description, price, tags, date;
         private Job jobTappedOn;
@@ -55,21 +61,40 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.MyViewHolder> {
         }
 
     }
+
+    /**
+     * Called when the user taps on a job on the home screen
+     * @param v the view we are working with
+     * @param job the job tapped on
+     */
     private void jobOnClick(View v, Job job) {
         Intent specificJob = new Intent(v.getContext(), JobViewActivity.class);
         Bundle b = new Bundle();
         specificJob.putExtra("jobTappedOn", job);
         v.getContext().startActivity(specificJob);
     }
+
+    /**
+     * Used for instantiating the view with the list of jobs we would like to display
+     * @param jobsList
+     */
     public JobAdapter(ArrayList<Job> jobsList) {
         this.jobsList = jobsList;
     }
 
+    /**
+     * Update the jobs list to reflect the specific information we would like to display
+     * @param jobsList
+     */
     public void updateContents(ArrayList<Job> jobsList) {
         this.jobsList = jobsList;
     }
 
-
+    /**
+     * Called when the RecyclerView on the Home page instantiates a job cell item
+     * @param holder The cell to be binded to the displayed list
+     * @param position The position in the list the cell will be displayed
+     */
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         if (jobsList.get(position) == null) return;
@@ -90,6 +115,10 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.MyViewHolder> {
         holder.setJob(job);
     }
 
+    /**
+     * Called when a new holder is created
+     * @return our cell specific to the job we would like to display
+     */
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         View itemView = LayoutInflater.from(parent.getContext())
@@ -98,6 +127,9 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.MyViewHolder> {
         return new MyViewHolder(itemView);
     }
 
+    /**
+     * @return the amount of cells to be displayed
+     */
     @Override
     public int getItemCount() {
         return jobsList.size();

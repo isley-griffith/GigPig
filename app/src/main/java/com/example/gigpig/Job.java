@@ -6,6 +6,11 @@ import com.google.android.gms.maps.model.LatLng;
 import java.io.Serializable;
 import java.util.*;
 
+/**
+ * Our job object, this stores an instance of a job
+ * We must implement Serializable for the purpose of passing
+ * it's contents between activities (views)
+ */
 public class Job implements Serializable {
 	private Double payout;
 	private String description;
@@ -19,6 +24,10 @@ public class Job implements Serializable {
 	private Double longitude;
     private Long creationDate;
 
+    /**
+     * Empty constructor is necessary for Firebase to populate the contents upon data
+     * retrieval
+     */
 	public Job() {
 
     }
@@ -53,7 +62,7 @@ public class Job implements Serializable {
 	 * @param latitude The latitude for the location
 	 * @return A new Location object instantiated using the longitude and latitude
 	 */
-	public Location createNewLocation(double longitude, double latitude) {
+	public Location createNewLocationObject(double longitude, double latitude) {
 		Location location = new Location("dummy");
 		location.setLongitude(longitude);
 		location.setLatitude(latitude);

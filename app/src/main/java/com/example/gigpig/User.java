@@ -5,21 +5,23 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 
+/**
+ * Class representing users of our app
+ */
 public class User{
-
-
 
     private ArrayList<String> tags;
     private String bio;
-    private ArrayList<String> reviews;
     private ArrayList<Job> userJobs;
     private ArrayList<Job> pastJobs;
     private Job userTakenJob;
     private boolean userHasJob;
-    
-    private ArrayList<Double> ratings;
-    private static double overallUserRating;
-    private static int numberOfRatings;
+
+    private String firstName;
+    private String lastName;
+    private String phoneNum;
+    private String username;
+    private String password;
     
     private static final int MAX_USER_JOBS = 5;
     private static final int MAX_BIO_LENGTH = 500;
@@ -34,24 +36,20 @@ public class User{
     	this.bio = "no bio rn";
         this.userJobs = new ArrayList<Job>();
         this.pastJobs = new ArrayList<Job>();
-        this.ratings = new ArrayList<Double>();
         this.userHasJob = false;
-        this.reviews = new ArrayList<String>();
-        overallUserRating = 5;
-        numberOfRatings = 0;
         this.tags = new ArrayList<String>();
     }
 
 
     /**
      * User constructor
-     * @param uId
-     * @param firstname
-     * @param lastname
-     * @param phonenumber
-     * @param username
-     * @param tags
-     * @param bio
+     * @param uId the unique ID associated with the user
+     * @param firstname user's first name
+     * @param lastname user's last name
+     * @param phonenumber user's phone number
+     * @param username user's username
+     * @param tags the tags the user would be interested in
+     * @param bio a bio describing the user so that others may review
      */
     public User(String uId, String firstname, String lastname, String phonenumber, String username, ArrayList<String> tags, String bio) {
         this.firstName = firstname;
@@ -61,34 +59,7 @@ public class User{
         this.tags = tags;
         this.bio = bio;
     }
-
-    private boolean checkNum() {
-    	//TODO: Some sort of way to check if the number has already been registered to an existing account
-    	return true;
-    }
     
-    public void receivedRating(double rate) {
-    	if (numberOfRatings == 0) {
-    		ratings.add(rate);
-    		numberOfRatings++;
-    		overallUserRating = rate;
-    	} else {
-    		double newRate = rate;
-    		numberOfRatings++;
-    		for (double pastRating: ratings) {
-    			newRate += pastRating;
-    		}
-    		overallUserRating = newRate/numberOfRatings;
-    	}
-    }
-    
-    public String getRating() {
-    	return String.format("%.2f", overallUserRating);
-    }
-    
-    public int getNumberOfRatings() {
-    	return numberOfRatings;
-    }
 
     /**
      * Creates a new user. No password
@@ -116,6 +87,10 @@ public class User{
         }
     }
 
+    /**
+     * Add a tag to the user
+     * @param tag the tag to add
+     */
     public void addTag(String tag) {
         this.tags.add(tag);
     }
@@ -141,11 +116,6 @@ public class User{
     		return true;
     	}
     }
-    
-    public String viewCurrentJob() {
-    	return "";
-    	//TODO: find someway to display a user's current job, Job toString
-    }
 
     public String getuId() {
         return uId;
@@ -161,6 +131,7 @@ public class User{
     	this.userHasJob = false;
     	pastJobs.add(userTakenJob);
     }
+
     public String getFirstName() {
         return firstName;
     }
@@ -208,12 +179,6 @@ public class User{
     public void setBio(String bio) {
         this.bio = bio;
     }
-
-    private String firstName;
-    private String lastName;
-    private String phoneNum;
-    private String username;
-    private String password;
 
     public void setTags(ArrayList<String> tags) {
         this.tags = tags;

@@ -60,8 +60,15 @@ public class NewFragment extends Fragment implements OnMapReadyCallback {
     private Job newJob;
     private LatLng startingLoc;
 
+    /**
+     * This contains a string to deal with our map view saved state, is unique thorughout the app
+     */
     private static final String MAP_VIEW_BUNDLE_KEY = "MapViewBundleKey";
+    private static final Float DEFAULT_ZOOM = 15f;
 
+    /**
+     * Called when the view is created, loads data from our fragment_new xml containing our gui
+     */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -69,6 +76,9 @@ public class NewFragment extends Fragment implements OnMapReadyCallback {
         return inflater.inflate(R.layout.fragment_new, null);
     }
 
+    /**
+     * Called after the view is created
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -103,6 +113,10 @@ public class NewFragment extends Fragment implements OnMapReadyCallback {
         this.newJob = null;
     }
 
+    /**
+     * Should save our data when switching between views
+     * @param outState
+     */
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -115,6 +129,8 @@ public class NewFragment extends Fragment implements OnMapReadyCallback {
 
         this.mapView.onSaveInstanceState(mapViewBundle);
     }
+
+    /** the following are functions to handle the Map's default behavior **/
 
     @Override
     public void onResume() {
@@ -145,6 +161,10 @@ public class NewFragment extends Fragment implements OnMapReadyCallback {
         this.mapView.onLowMemory();
     }
 
+    /**
+     * Called when map is created
+     * @param gMap our instance of the map, we save this to an instance variable
+     */
     @Override
     public void onMapReady(GoogleMap gMap) {
         if (gMap == null) return;
@@ -164,23 +184,28 @@ public class NewFragment extends Fragment implements OnMapReadyCallback {
         });
 
 
-//        this.googleMap.setMinZoomPreference(12);
-
         LatLng cc = new LatLng(38.848450, -104.822714);
         this.startingLoc = cc;
 
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(cc, 15));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(cc, DEFAULT_ZOOM));
         mapView.setCurrentMarker(googleMap.addMarker(new MarkerOptions().position(cc).title("This will be the location of your job")));
     }
 
-
+    /**
+     * Helper function to parse tags from the user
+     * The user can separate tags with a space or a comma and a space
+     * @return the list of tags entered
+     */
     private ArrayList<String> getTags() {
         String tagsString = this.jobTagsInput.getText().toString();
 
-        return new ArrayList<>(Arrays.asList(tagsString.split(" ")));
+        // this regex parses whether or not there is a comma separating them
+        return new ArrayList<>(Arrays.asList(tagsString.split(",? ")));
     }
 
-    // TODO: Some database stuff
+    /**
+     * Fetches data from the user input, makes a new job object and pushes it to the database
+     */
     private void createJob(View view) {
         double payout = 0.0;
 
@@ -208,8 +233,9 @@ public class NewFragment extends Fragment implements OnMapReadyCallback {
         //Get LatLng from dropped pin
         LatLng location = mapView.getCurrentMarker().getPosition();
 
+        // concatinating with "" is a workaround so that sort by alphabetic order works as
+        // expected
         this.newJob = new Job("" + title + "", description, inquirerId, doerId, payout, tags, location);
-//        this.newJob = new Job(" a new one", "hard coded descr", 30, placeHolderUser, tags, null);
 
 
 
@@ -223,11 +249,7 @@ public class NewFragment extends Fragment implements OnMapReadyCallback {
         this.mapView.setCurrentMarker(googleMap.addMarker(new MarkerOptions().position(startingLoc).title("This will be the location of your job")));
 
     }
-//    googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener()) {
-//        public void onMapClick (LatLng point) {
-//        googleMap.setOnMapClickListener
-//    }
-//    }
+
 
 
 

@@ -39,6 +39,10 @@ public class DatabaseHelper {
         users.put(uId, user);
     }
 
+    /**
+     * Fetches jobs that the currently logged in user did not create
+     * @return arraylist of jobs more relevent to the current user
+     */
     public static ArrayList<Job> getPostedJobsForUser() {
         final ArrayList<Job> homeScreenJobs = new ArrayList<Job>();
         final FirebaseAuth mAuth = FirebaseAuth.getInstance();

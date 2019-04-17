@@ -9,18 +9,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 /**
- * Main Activity of GigPig. Called when app starts.
+ * Called when user is logged in
+ * This activity handles our tabbed navigation
  */
 public class NavigationActivity extends AppCompatActivity
         implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     Fragment homeFragment;
-    Fragment searchFragment;
     Fragment newFragment;
-    Fragment notificationsFragment;
     Fragment profileFragment;
 
-
+    /**
+     * Called when view is created; will, by default, begin with the home page
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,11 +37,19 @@ public class NavigationActivity extends AppCompatActivity
         loadFragment(this.homeFragment);
     }
 
+    /**
+     * Called after the view is created
+     */
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
     }
 
+    /**
+     * Helper function to load specific fragment into the view
+     * this is either the home page, add a new job page, or the profile page
+     * @param fragment fragment to load
+     */
     private boolean loadFragment(Fragment fragment) {
         if (fragment == null)
             return false;
@@ -53,6 +62,10 @@ public class NavigationActivity extends AppCompatActivity
         return true;
     }
 
+    /**
+     * Called when the user selects a tab item on the bottom of the screen
+     * @param menuItem the menu item selected (home, new, profile)
+     */
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         Fragment fragment = null;
