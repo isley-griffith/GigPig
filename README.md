@@ -1,4 +1,6 @@
 # GigPig
+### _Cloned from https://github.com/stefan-bay/GigPig
+### A group project
 
 App for Android for users to post and find jobs, gigs, etc. in your area.
 
